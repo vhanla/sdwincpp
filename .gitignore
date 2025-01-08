@@ -69,3 +69,7 @@ __recovery/
 modules/
 
 *.dsv
+Win64
+Win32
+assets
+stable-diffusion.cpp
