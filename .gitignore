@@ -73,3 +73,4 @@ Win64
 Win32
 assets
 stable-diffusion.cpp
+*.bkp
