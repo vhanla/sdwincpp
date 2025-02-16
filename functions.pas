@@ -4,13 +4,14 @@ interface
 
 uses
   System.SysUtils, System.Classes, System.JSON, System.Net.HttpClient, System.Net.URLClient,
-  System.DateUtils, System.Math;
+  System.DateUtils, System.Math, RegularExpressions;
 
 function GetSDReleases: TStringList;
 function ISO8601ToDateTime(const ADate: string): TDateTime;
 function AppPath: string;
 function GetWidthRatio(Height: Integer; const AspectRatio: string): Integer;
 function GetHeightRatio(Width: Integer; const AspectRatio: string): Integer;
+function ConvertToGitHubApiEndpoint(const Input: string): string;
 
 implementation
 
@@ -122,5 +123,65 @@ begin
   end;
 
 end;
+
+function ConvertToGitHubApiEndpoint(const Input: string): string;
+var
+  Pattern: string;
+  Match: TMatch;
+  Owner, Repo: string;
+  Parts: TArray<string>;
+  CleanInput: string;
+begin
+  Result := '';
+  if Input.Trim.IsEmpty then
+    Exit;
+
+  // Clean up input
+  CleanInput := Input.Trim;
+
+  // Pattern to match various GitHub URL formats
+  Pattern := '^(?:https?:\/\/)?(?:www\.)?github\.com\/([^\/\s]+)\/([^\/\s]+)(?:\.git)?$';
+
+  // Try to match URL format first
+  Match := TRegEx.Match(CleanInput, Pattern, [roIgnoreCase]);
+  if Match.Success then
+  begin
+    Owner := Match.Groups[1].Value;
+    Repo := Match.Groups[2].Value;
+  end
+  else
+  begin
+    // Try to match owner/repo format
+    Pattern := '^([^\/\s]+)\/([^\/\s]+)(?:\.git)?$';
+    Match := TRegEx.Match(CleanInput, Pattern);
+
+    if Match.Success then
+    begin
+      Owner := Match.Groups[1].Value;
+      Repo := Match.Groups[2].Value;
+    end
+    else
+    begin
+      // Try to match space-separated format: "owner repo"
+      Parts := CleanInput.Split([' '], TStringSplitOptions.ExcludeEmpty);
+      if Length(Parts) = 2 then
+      begin
+        Owner := Parts[0];
+        Repo := Parts[1];
+      end
+      else
+        Exit; // Invalid format
+    end;
+  end;
+
+  // Validate owner and repo names (alphanumeric, hyphen allowed, repo can include dots)
+  if not TRegEx.IsMatch(Owner, '^[a-zA-Z0-9\-]+$') or
+     not TRegEx.IsMatch(Repo, '^[a-zA-Z0-9\-\.]+$') then
+    Exit;
+
+  // Construct API endpoint
+  Result := Format('https://api.github.com/repos/%s/%s/releases/latest', [Owner, Repo]);
+end;
+
 
 end.
