@@ -4,8 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UWP.DarkMode, Vcl.WinXPanels,
-  Vcl.ExtCtrls, Vcl.WinXCtrls, UWP.SideButton, GR32_Image,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CB.DarkMode, Vcl.WinXPanels,
+  Vcl.ExtCtrls, Vcl.WinXCtrls, CB.SideButton, GR32_Image,
   ACL.UI.Controls.BaseEditors,
   ACL.UI.Controls.Memo, Vcl.TitleBarCtrls, Vcl.StdCtrls,
   Vcl.BaseImageCollection, Vcl.ImageCollection, System.ImageList, Vcl.ImgList,
@@ -16,7 +16,7 @@ uses
   ACL.UI.Controls.ImageComboBox, ACL.UI.Controls.CheckComboBox,
   ACL.UI.Controls.SearchBox, ACL.UI.Controls.Category, ACL.UI.Controls.Buttons,
   ACL.UI.Insight, ACL.UI.Controls.GroupBox, ACL.UI.Controls.Docking, Vcl.Menus,
-  Vcl.Mask, RzEdit, UWP.CollapsePanel, VirtualTrees.BaseAncestorVCL,
+  Vcl.Mask, RzEdit, CB.CollapsePanel, VirtualTrees.BaseAncestorVCL,
   VirtualTrees.BaseTree, VirtualTrees.AncestorVCL, VirtualTrees,
   VirtualExplorerTree, Vcl.FileCtrl, System.Generics.Collections, pngimage, jpeg,
   ACL.Classes, ACL.UI.Application, ACL.UI.Controls.MagnifierGlass,
@@ -26,7 +26,7 @@ uses
   SynHighlighterUNIXShellScript, SynEdit, ACL.UI.Controls.ProgressBox,
   MPCommonObjects, MPCommonUtilities, EasyListview, VirtualExplorerEasyListview,
   ACL.UI.Controls.FormattedLabel, ACL.UI.Controls.Panel,
-  ACL.UI.Controls.Splitter, frameText2Img, UWP.Downloader,
+  ACL.UI.Controls.Splitter, frameText2Img,
   System.Net.HttpClient, System.Net.URLClient, System.JSON, RzPanel,
   System.Math, GR32_Layers, GR32, StableDiffusion, Threading,
   settings, System.Zip, System.IOUtils,
@@ -37,9 +37,13 @@ uses
   JvShellHook, JvSpellChecker, JvAppInst, JvSpellerForm, JvBaseDlg,
   JvJVCLAboutForm, JvComputerInfoEx, SVGIconImageListBase, SVGIconImageList,
   frameParams, System.SyncObjs, MPShellUtilities, VirtualShellNotifier,
-  UWP.ShellMonitors, UWP.DosCommandEx, SynHighlighterSDPrompt, System.Actions, Vcl.ActnList,
+  CB.ShellMonitors, CB.DosCommandEx, SynHighlighterSDPrompt, System.Actions, Vcl.ActnList,
   SynSpellCheck, sdDataModule, SynCompletionProposal, TFlatSplitterUnit, RzSplit,
-  JvExExtCtrls, JvNetscapeSplitter, JvExtComponent, JvSplit;
+  JvExExtCtrls, JvNetscapeSplitter, JvExtComponent, JvSplit, Vcl.Grids,
+  Vcl.ValEdit, SystemCapabilities, CB.Downloader, ACL.UI.DropSource,
+  ACL.UI.DropTarget, ACL.UI.Controls.TreeList.Options,
+  ACL.UI.Controls.TreeList.SubClass, ACL.UI.Controls.TreeList.Types,
+  ACL.UI.Controls.TreeList, ACL.UI.Controls.TabControl;
 {$DEFINE KernelNotifier}
 type
   TStringList = class(System.Classes.TStringList)
@@ -58,7 +62,7 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    procedure CheckRelease;
+    procedure CheckRelease(const GitHub: string = 'leejet/stable-diffusion.cpp');
     property Assets: TStringList read FAssets write FAssets;
     property ReleaseData: TDateTime read FReleaseDate write FReleaseDate;
     property TagName: string read FTagName write FTagName;
@@ -116,7 +120,7 @@ type
     imcbSDModels: TACLImageComboBox;
     ACLDockSite1: TACLDockSite;
     ACLDockPanel1: TACLDockPanel;
-    CollapsePanel1: TCollapsePanel;
+    CollapsePanel1: TCBCollapsePanel;
     icSDModels: TImageCollection;
     ilSDModels: TImageList;
     ACLApplicationController1: TACLApplicationController;
@@ -135,15 +139,6 @@ type
     LabeledEdit1: TLabeledEdit;
     ACLGroupBox1: TACLGroupBox;
     ACLButton1: TACLButton;
-    ACLRadioBox1: TACLRadioBox;
-    ACLRadioBox2: TACLRadioBox;
-    ACLRadioBox3: TACLRadioBox;
-    ACLRadioBox4: TACLRadioBox;
-    ACLRadioBox5: TACLRadioBox;
-    ACLRadioBox6: TACLRadioBox;
-    ACLRadioBox7: TACLRadioBox;
-    UWPDownloader1: TUWPDownloader;
-    Memo1: TMemo;
     RzStatusBar1: TRzStatusBar;
     pnlPrompt: TACLPanel;
     Splitter2: TSplitter;
@@ -196,9 +191,9 @@ type
     txtOutput: TSynEdit;
     tmrOutput: TTimer;
     ACLSplitter4: TACLSplitter;
-    ShellMonitorManager1: TShellMonitorManager;
-    DirectoryMonitor1: TDirectoryMonitor;
-    procSDServer: TDosCommandEx;
+    ShellMonitorManager1: TCBShellMonitorManager;
+    DirectoryMonitor1: TCBDirectoryMonitor;
+    procSDServer: TCBDosCommandEx;
     sedPrompt: TSynEdit;
     sedNegPrompt: TSynEdit;
     pmnuEditor: TPopupMenu;
@@ -239,6 +234,18 @@ type
     gridImgSize: TGridPanel;
     ACLComboBox1: TACLComboBox;
     ACLLabel1: TACLLabel;
+    Label1: TLabel;
+    setEdNewGitHub: TACLEdit;
+    ACLButton2: TACLButton;
+    pnlSDFlavors: TACLPanel;
+    StackPanel1: TStackPanel;
+    ScrollBox2: TScrollBox;
+    ACLTreeList1: TACLTreeList;
+    pmSDFlavors: TACLPopupMenu;
+    N6: TACLMenuItem;
+    N7: TACLMenuItem;
+    N8: TACLMenuItem;
+    pmRepos: TACLPopupMenu;
     procedure FormCreate(Sender: TObject);
     procedure dcNvidiaStatsTerminateProcess(ASender: TObject;
       var ACanTerminate: Boolean);
@@ -302,6 +309,8 @@ type
       AOutputType: TOutputType);
     procedure chkSDServerClick(Sender: TObject);
     procedure imcbSDModelsChange(Sender: TObject);
+    procedure ACLButton2Click(Sender: TObject);
+    procedure pmReposPopup(Sender: TObject);
   private
     { Private declarations }
     FOutputBuffer: TStringList;
@@ -315,6 +324,8 @@ type
     FSDModelsPath: string;
     FPicturesPath: string;
     FOutputImagePath: string;
+    SysInfo: TSystemInfo;
+    GPU: TGPUInfo;
     GPUInfo: TStringList;
     realquit: Boolean;
     FSDModels: TSDModelList;
@@ -327,6 +338,10 @@ type
     procedure UpdatePictureList;
     function ExtractPNGTextChunk(const FileName: string): string;
     procedure WMHelp(var Message: TWMHelp); message WM_HELP;
+    procedure WndProc(var Message: TMessage); override;
+
+    procedure GetDownloadableReleases(repo: string ='');
+    procedure pmReposClick(Sender: TObject);
   public
     { Public declarations }
     procedure UpdateZoom(Delta: Integer);
@@ -337,6 +352,8 @@ type
     procedure RegisterNotifier;
 
     procedure StartSDServer;
+
+    procedure UpdateThemes;
   end;
 
 var
@@ -356,17 +373,7 @@ uses
 
 procedure TmainForm.ACLButton1Click(Sender: TObject);
 begin
-  FSDRelease.CheckRelease;
-
-  if FSDRelease.Assets.Count > 0 then
-  begin
-    var Fecha := FormatDateTime('dddd, mmmm dd, yyyy hh:nn:ss am/pm', FSDRelease.FReleaseDate);
-    Memo1.Lines.Add(Format('Released Data: %s', [Fecha]));
-    for var I := 0 to FSDRelease.Assets.Count - 1 do
-    begin
-      Memo1.Lines.Add(FSDRelease.Assets.Names[I]);
-    end;
-  end;
+  GetDownloadableReleases;
 end;
 
 procedure TmainForm.btnGenerateClick(Sender: TObject);
@@ -441,6 +448,36 @@ end;
 procedure TmainForm.chkSDServerClick(Sender: TObject);
 begin
   StartSDServer;
+end;
+
+procedure TmainForm.ACLButton2Click(Sender: TObject);
+begin
+  FSDRelease.CheckRelease(setEdNewGitHub.Text);
+
+  if FSDRelease.Assets.Count > 0 then
+  begin
+//    Memo1.Lines.Clear;
+    var Fecha := FormatDateTime('dddd, mmmm dd, yyyy hh:nn:ss am/pm', FSDRelease.FReleaseDate);
+//    Memo1.Lines.Add(Format('Released Data: %s', [Fecha]));
+    for var I := 0 to FSDRelease.Assets.Count - 1 do
+    begin
+//      Memo1.Lines.Add(FSDRelease.Assets.Names[I]);
+    end;
+
+    var newRepo := TRepos.Create;
+    try
+      newRepo.Name := 'NewName';
+      newRepo.GitHub := setEdNewGitHub.Text;
+      newRepo.Version := '1.0';
+      FSetting.Repos.Add(newRepo);
+      TSettings.SaveSettings(FSetting);
+    except
+      newRepo.Free; // Only free it if an exception occurs before adding it to the list
+      raise;
+    end;
+
+  end;
+
 end;
 
 procedure TmainForm.ACLButton3Click(Sender: TObject);
@@ -949,16 +986,15 @@ end;
 
 procedure TmainForm.FormCreate(Sender: TObject);
 begin
+  if IsWindowsDarkMode then
+  begin
+    TStyleManager.TrySetStyle('Windows11 Modern Dark');
+    SetDarkMode(Handle, True);
+  end;
+
   container.Align := alClient;
   activitySplash.Active := True;
   CollapsePanel1.Collapsed := True;
-  if SystemIsDarkMode then
-  begin
-    SetDarkMode(Handle, True);
-    ACLApplicationController1.DarkMode := TACLBoolean(False);
-  end
-  else
-    ACLApplicationController1.DarkMode := TACLBoolean(True);
 
   LoadSettings;
   sldSteps.Position := 4;
@@ -1063,10 +1099,17 @@ begin
   // Registering for shell events
   DirectoryMonitor1.WatchPath := FPicturesPath;
   ShellMonitorManager1.Active := True;
+
+  SysInfo := TSystemInfo.Create;
+
+
+  UpdateThemes;
 end;
 
 procedure TmainForm.FormDestroy(Sender: TObject);
 begin
+  SysInfo.Free;
+
   FSyncLock.Free;
   FOutputBuffer.Free;
 
@@ -1080,29 +1123,64 @@ begin
   FSetting.Free;
 end;
 
+procedure TmainForm.GetDownloadableReleases(repo: string);
+begin
+  if repo.IsEmpty then
+    FSDRelease.CheckRelease
+  else
+    FSDRelease.CheckRelease(repo);
+
+  if FSDRelease.Assets.Count > 0 then
+  begin
+    var Fecha := FormatDateTime('dddd, mmmm dd, yyyy hh:nn:ss am/pm', FSDRelease.FReleaseDate);
+    //Memo1.Lines.Add(Format('Released Data: %s', [Fecha]));
+    StackPanel1.ControlCollection.Clear;
+    for var I := 0 to FSDRelease.Assets.Count - 1 do
+    begin
+
+//      Memo1.Lines.Add(FSDRelease.Assets.Names[I]);
+
+      if FSDRelease.Assets.Names[I].Contains('-win-') then
+      begin
+        var link := TCBDownloader.Create(Self);
+        link.Parent := StackPanel1;
+        link.Align := alClient;
+        link.URL := FSDRelease.Assets.Values[FSDRelease.Assets.Names[I]];
+        link.Caption := FSDRelease.Assets.Names[I];
+        link.SavePath := '';
+        link.Detail := '';
+        StackPanel1.InsertComponent(link);
+      end;
+    end;
+  end;
+end;
+
 procedure TmainForm.imcbSDModelsChange(Sender: TObject);
 begin
-  if LowerCase(imcbSDModels.SelectedItem.Text).Contains('lcm') then
+  if imcbSDModels.Items.Count > 0 then
   begin
-    sldCFG.OptionsValue.Max := 2;
-    sldCFG.OptionsValue.Default := 1;
-    sldCFG.OptionsLabels.MaxValue := '2.0';
-    sldCFG.Position := 1;
-    sldSteps.OptionsValue.Max := 6;
-    sldSteps.OptionsLabels.MaxValue := '6.0';
-    sldSteps.OptionsValue.Default := 4;
-    sldSteps.Position := 4;
-  end
-  else
-  begin
-    sldCFG.OptionsValue.Max := 15;
-    sldCFG.OptionsValue.Default := 7;
-    sldCFG.OptionsLabels.MaxValue := '15.0';
-    sldCFG.Position := 7;
-    sldSteps.OptionsValue.Max := 150;
-    sldSteps.OptionsLabels.MaxValue := '150.0';
-    sldSteps.OptionsValue.Default := 20;
-    sldSteps.Position := 20;
+    if LowerCase(imcbSDModels.SelectedItem.Text).Contains('lcm') then
+    begin
+      sldCFG.OptionsValue.Max := 2;
+      sldCFG.OptionsValue.Default := 1;
+      sldCFG.OptionsLabels.MaxValue := '2.0';
+      sldCFG.Position := 1;
+      sldSteps.OptionsValue.Max := 6;
+      sldSteps.OptionsLabels.MaxValue := '6.0';
+      sldSteps.OptionsValue.Default := 4;
+      sldSteps.Position := 4;
+    end
+    else
+    begin
+      sldCFG.OptionsValue.Max := 15;
+      sldCFG.OptionsValue.Default := 7;
+      sldCFG.OptionsLabels.MaxValue := '15.0';
+      sldCFG.Position := 7;
+      sldSteps.OptionsValue.Max := 150;
+      sldSteps.OptionsLabels.MaxValue := '150.0';
+      sldSteps.OptionsValue.Default := 20;
+      sldSteps.Position := 20;
+    end;
   end;
 end;
 
@@ -1240,6 +1318,16 @@ begin
   begin
     LabeledEdit1.Text := FSetting.Paths.SDModels;
     LabeledEdit2.Text := FSetting.Paths.SDLoras;
+
+    ACLTreeList1.Clear;
+//    ValueListEditor1.Strings.Clear;
+    var RowIndex := 0;
+    for var Repo in FSetting.Repos do
+    begin
+//      ValueListEditor1.InsertRow(Repo.Name, Repo.GitHub, True);
+      ACLTreeList1.RootNode.AddChild([Repo.Name, Repo.GitHub]);
+      Inc(RowIndex);
+    end;
   end;
 end;
 
@@ -1324,6 +1412,26 @@ begin
           pmnuSpelling.Insert(0, MenuItem);
         end;
     end;
+  end;
+end;
+
+procedure TmainForm.pmReposClick(Sender: TObject);
+begin
+  if Sender is TMenuItem then
+    GetDownloadableReleases(TMenuItem(Sender).Caption);
+end;
+
+procedure TmainForm.pmReposPopup(Sender: TObject);
+var
+  MenuItem: TMenuItem;
+begin
+  pmRepos.Items.Clear;
+  for var repo in FSetting.Repos do
+  begin
+    MenuItem := TMenuItem.Create(pmRepos);
+    MenuItem.Caption := repo.GitHub;
+    MenuItem.OnClick := pmReposClick;
+    pmRepos.Items.Add(MenuItem);
   end;
 end;
 
@@ -1437,7 +1545,7 @@ procedure TmainForm.tmrOutputTimer(Sender: TObject);
 var
   tmpbuf: TStringList;
 begin
-  if not Assigned(txtOutput) then Exit;
+  if not Assigned(FOutputBuffer) then Exit;
   
   if FOutputBuffer.Count = 0 then
     Exit;
@@ -1528,6 +1636,79 @@ begin
   xpListView.Sort.SortAll();
 end;
 
+procedure TmainForm.UpdateThemes;
+begin
+  if IsWindowsDarkMode then
+  begin
+
+    ACLApplicationController1.DarkMode := TACLBoolean.True;
+    with mainForm.CustomTitleBar do
+    begin
+      SystemColors := False;
+      BackgroundColor := clBlack;
+      ButtonBackgroundColor := clWhite;
+      ButtonForegroundColor := $00010101;
+      ButtonHoverBackgroundColor := $00f4f4f4;
+      ButtonHoverForegroundColor := $00010101;
+      ButtonInactiveBackgroundColor := clWhite;
+      ButtonInactiveForegroundColor := $00999999;
+      ButtonPressedBackgroundColor := $00eaeaea;
+      ButtonPressedForegroundColor := $00010101;
+      ForegroundColor := clWhite;
+      InactiveBackgroundColor := $002d2d2d;
+      InactiveForegroundColor := $00999999;
+    end;
+    TStyleManager.TrySetStyle('Windows11 Modern Dark');
+    ImgView321.Color := clBackground;
+    RzTabControl1.BackgroundColor := clBackground;
+    RzTabControl1.Color := clBackground;
+    sedPrompt.Color := clBlack;
+    sedNegPrompt.Color := clBlack;
+    txtOutput.Color := clBlack;
+
+    sdsynedit.LoraAttri.Foreground := $8BE9FD; // Light blue
+    sdsynedit.SymbolAttri.Foreground := clYellow;
+    sdsynedit.TextAttri.Foreground := $F8F8F2; // Off-white for text content
+    sdsynedit.EmphasisAttri.Foreground := clYellow;
+    sdsynedit.UnderEmphasisAttri.Foreground := clGreen;
+    sdsynedit.LevelAttri.Foreground := clGreen;
+    sdsynedit.CommentAttri.Foreground := clGray;
+    sdsynedit.CommaAttri.Foreground := $423BFB; // Orange like
+    sdsynedit.SentenceAttri.Background := $1c1c1c;
+
+    container.Color := clBlack;
+
+    SetDarkMode(Handle, True);
+  end
+  else
+  begin
+
+    ACLApplicationController1.DarkMode := TACLBoolean.False;
+    mainForm.CustomTitleBar.SystemColors := True;
+    TStyleManager.TrySetStyle('Light');
+    ImgView321.Color := clWhite;
+    RzTabControl1.BackgroundColor := clWhite;
+    RzTabControl1.Color := clWhite;
+    sedPrompt.Color := clWhite;
+    sedNegPrompt.Color := clWhite;
+    txtOutput.Color := clWhite;
+
+    sdsynedit.LoraAttri.Foreground := $8BE9FD; // Light blue
+    sdsynedit.SymbolAttri.Foreground := clYellow;
+    sdsynedit.TextAttri.Foreground := $000000; // Off-white for text content
+    sdsynedit.EmphasisAttri.Foreground := clYellow;
+    sdsynedit.UnderEmphasisAttri.Foreground := clGreen;
+    sdsynedit.LevelAttri.Foreground := clGreen;
+    sdsynedit.CommentAttri.Foreground := clGray;
+    sdsynedit.CommaAttri.Foreground := $423BFB; // Orange like
+    sdsynedit.SentenceAttri.Background := $1c1c1c;
+
+    container.Color := clWhite;
+
+    SetDarkMode(Handle, False);
+  end;
+end;
+
 procedure TmainForm.UpdateZoom(Delta: Integer);
 var
   OldZoom, NewZoom: Single;
@@ -1557,25 +1738,25 @@ end;
 
 procedure TmainForm.UWPDownloader1Click(Sender: TObject);
 begin
-  ForceDirectories(AppPath + 'downloads');
-  var i := FSDRelease.Assets.FindIndexByPartialText('win-vulkan');
-  if (i <> -1) then
-  begin
-    var cuda := FSDRelease.Assets.Names[i];
-    var cudalink := FSDRelease.Assets.Values[cuda];
-    UWPDownloader1.URL := cudalink;
-    FTempFile :=  AppPath + 'downloads\' + cuda;
-    UWPDownloader1.SavePath := FTempFile;
-
-    if not FileExists(PChar(AppPath + 'downloads\' + cuda)) then
-    begin
-      UWPDownloader1.DoStartDownload;
-    end
-    else
-    begin
-      UWPDownloader1Downloaded(Sender, 200);
-    end;
-  end;
+//  ForceDirectories(AppPath + 'downloads');
+//  var i := FSDRelease.Assets.FindIndexByPartialText('win-vulkan');
+//  if (i <> -1) then
+//  begin
+//    var cuda := FSDRelease.Assets.Names[i];
+//    var cudalink := FSDRelease.Assets.Values[cuda];
+//    UWPDownloader1.URL := cudalink;
+//    FTempFile :=  AppPath + 'downloads\' + cuda;
+//    UWPDownloader1.SavePath := FTempFile;
+//
+//    if not FileExists(PChar(AppPath + 'downloads\' + cuda)) then
+//    begin
+//      UWPDownloader1.DoStartDownload;
+//    end
+//    else
+//    begin
+//      UWPDownloader1Downloaded(Sender, 200);
+//    end;
+//  end;
 end;
 
 procedure TmainForm.UWPDownloader1DblClick(Sender: TObject);
@@ -1695,6 +1876,15 @@ begin
   Caption := 'Help!';
 end;
 
+procedure TmainForm.WndProc(var Message: TMessage);
+begin
+  if Message.Msg = WM_SETTINGCHANGE then
+  begin
+    UpdateThemes;
+  end;
+  inherited;
+end;
+
 { TSDModelList }
 
 constructor TSDModelList.Create(const DirectoryPath: string);
@@ -1763,7 +1953,7 @@ end;
 
 { TStableDiffusionDist }
 
-procedure TStableDiffusionDist.CheckRelease;
+procedure TStableDiffusionDist.CheckRelease(const GitHub: string);
 var
   HttpClient: THTTPClient;
   Response: IHTTPResponse;
@@ -1773,11 +1963,13 @@ var
   I: Integer;
   Url, TagName, FileName: string;
   ResultList: TStringList;
+  LGitHub: string;
 begin
+  LGitHub := ConvertToGitHubApiEndpoint(GitHub);
   ResultList := TStringList.Create;
   HttpClient := THTTPClient.Create;
   try
-    Response := HttpClient.Get('https://api.github.com/repos/leejet/stable-diffusion.cpp/releases/latest');
+    Response := HttpClient.Get(LGitHub);
     if Response.StatusCode = 200 then
     begin
       JsonObj := TJSONObject.ParseJSONValue(Response.ContentAsString()) as TJSONObject;

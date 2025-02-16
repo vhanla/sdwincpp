@@ -87,6 +87,7 @@ object mainForm: TmainForm
           Cursor = crVSplit
           Align = alTop
           Beveled = True
+          ExplicitWidth = 195
         end
         object splitImgExplorer: TACLSplitter
           Left = 176
@@ -94,6 +95,8 @@ object mainForm: TmainForm
           Width = 8
           Height = 388
           Control = pnlt2iViewer
+          ExplicitLeft = -333
+          ExplicitHeight = 114
         end
         object pnlt2iExplorer: TACLPanel
           Left = 2
@@ -141,8 +144,6 @@ object mainForm: TmainForm
             SpecialFolders = [spPictures]
             TabOrder = 0
             Transparent = True
-            ExplicitLeft = 4
-            ExplicitTop = 6
           end
           object RzSplitter1: TRzSplitter
             Left = 2
@@ -154,14 +155,15 @@ object mainForm: TmainForm
             Position = 0
             Percent = 0
             RealTimeDrag = True
+            UpperLeft.Color = 15987699
+            LowerRight.Color = 15987699
             HotSpotVisible = True
             HotSpotDirection = hsdMax
             SplitterWidth = 7
             Align = alClient
+            Color = 15987699
             TabOrder = 1
             Visible = False
-            ExplicitTop = 296
-            ExplicitHeight = 15
             BarSize = (
               0
               0
@@ -242,9 +244,6 @@ object mainForm: TmainForm
             OnItemClick = xpListViewItemClick
             OnItemSelectionChanged = xpListViewItemSelectionChanged
             OnShellNotify = xpListViewShellNotify
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitHeight = 100
           end
           object pnlPicInfo: TACLPanel
             Left = 2
@@ -253,7 +252,6 @@ object mainForm: TmainForm
             Height = 136
             Align = alBottom
             TabOrder = 3
-            ExplicitTop = 240
             object ACLFormattedLabel1: TACLFormattedLabel
               AlignWithMargins = True
               Left = 5
@@ -263,7 +261,6 @@ object mainForm: TmainForm
               Align = alClient
               TabOrder = 0
               Caption = ''
-              ExplicitHeight = 349
             end
           end
           object splitExplorer: TJvxSplitter
@@ -274,12 +271,9 @@ object mainForm: TmainForm
             ControlFirst = xpListView
             ControlSecond = pnlPicInfo
             Align = alBottom
-            ExplicitLeft = -8
-            ExplicitTop = 192
-            ExplicitWidth = 185
           end
         end
-        object CollapsePanel1: TCollapsePanel
+        object CollapsePanel1: TCBCollapsePanel
           Left = 2
           Top = 398
           Width = 704
@@ -336,7 +330,9 @@ object mainForm: TmainForm
             Highlighter = SynUNIXShellScriptSyn1
             Lines.Strings = (
               'Infer output:')
+            ScrollbarAnnotations = <>
             SelectedColor.Alpha = 0.400000005960464500
+            VisibleSpecialChars = []
           end
         end
         object pnlt2iViewer: TACLPanel
@@ -438,8 +434,6 @@ object mainForm: TmainForm
             Font.Name = 'Segoe UI'
             Font.Style = []
             ParentFont = False
-            ExplicitLeft = 4
-            ExplicitTop = 332
           end
           object lblModel: TACLLabel
             AlignWithMargins = True
@@ -473,8 +467,6 @@ object mainForm: TmainForm
             Font.Name = 'Segoe UI'
             Font.Style = []
             ParentFont = False
-            ExplicitLeft = 7
-            ExplicitTop = 369
           end
           object btnGenerate: TACLButton
             AlignWithMargins = True
@@ -542,8 +534,8 @@ object mainForm: TmainForm
               5049020000006000}
             ImageIndex = 4
             Images = VirtualImageList1
-            ExplicitLeft = 9
-            ExplicitTop = 369
+            DropDownMenu = pmSDFlavors
+            Kind = sbkDropDownButton
           end
           object pnlPrompt: TACLPanel
             Left = 2
@@ -552,8 +544,6 @@ object mainForm: TmainForm
             Height = 214
             Align = alClient
             TabOrder = 1
-            ExplicitTop = 33
-            ExplicitHeight = 289
             object Splitter2: TSplitter
               Left = 2
               Top = 152
@@ -610,7 +600,9 @@ object mainForm: TmainForm
               Lines.Strings = (
                 'sedPrompt')
               Options = [eoAutoIndent, eoDisableScrollArrows, eoDragDropEditing, eoDropFiles, eoEnhanceHomeKey, eoEnhanceEndKey, eoGroupUndo, eoHideShowScrollbars, eoKeepCaretX, eoRightMouseMovesCursor, eoShowScrollHint, eoSmartTabDelete, eoTabIndent, eoTabsToSpaces, eoShowLigatures]
+              ScrollbarAnnotations = <>
               SelectedColor.Alpha = 0.400000005960464500
+              VisibleSpecialChars = []
             end
             object sedNegPrompt: TSynEdit
               Left = 2
@@ -656,8 +648,9 @@ object mainForm: TmainForm
               Lines.Strings = (
                 'SynEdit1')
               Options = [eoAutoIndent, eoDisableScrollArrows, eoDragDropEditing, eoDropFiles, eoEnhanceHomeKey, eoEnhanceEndKey, eoGroupUndo, eoHideShowScrollbars, eoKeepCaretX, eoRightMouseMovesCursor, eoShowScrollHint, eoSmartTabDelete, eoTabIndent, eoTabsToSpaces, eoShowLigatures]
+              ScrollbarAnnotations = <>
               SelectedColor.Alpha = 0.400000005960464500
-              ExplicitHeight = 127
+              VisibleSpecialChars = []
             end
           end
           object GridPanel1: TGridPanel
@@ -695,7 +688,6 @@ object mainForm: TmainForm
               end>
             ShowCaption = False
             TabOrder = 2
-            ExplicitTop = 2
             object imcbSDModels: TACLImageComboBox
               Left = 1
               Top = 1
@@ -719,7 +711,6 @@ object mainForm: TmainForm
               StyleButton.Collection = ACLResourceCollection1
               StyleDropDownList.Collection = ACLResourceCollection1
               StyleDropDownListScrollBox.Collection = ACLResourceCollection1
-              ExplicitWidth = 348
             end
             object ACLComboBox4: TACLComboBox
               Left = 319
@@ -747,8 +738,6 @@ object mainForm: TmainForm
               StyleDropDownList.Collection = ACLResourceCollection1
               StyleDropDownListScrollBox.Collection = ACLResourceCollection1
               Text = ''
-              ExplicitLeft = 349
-              ExplicitWidth = 42
             end
           end
           object chkSDServer: TACLCheckBox
@@ -760,8 +749,6 @@ object mainForm: TmainForm
             TabOrder = 3
             OnClick = chkSDServerClick
             Caption = 'Use SD Server (starts sd-server.exe)'
-            ExplicitLeft = 1
-            ExplicitTop = 305
           end
           object ACLComboBox1: TACLComboBox
             Left = 2
@@ -779,8 +766,6 @@ object mainForm: TmainForm
             ItemIndex = 0
             Mode = cbmList
             Text = 'Official'
-            ExplicitLeft = 1
-            ExplicitTop = 318
           end
         end
         object pnlParams: TACLPanel
@@ -803,9 +788,6 @@ object mainForm: TmainForm
             StyleCaption.Collection = ACLResourceCollection1
             StyleCaption.ColorText.Value = xFF0078D7
             StyleCaption.ColorText.ID = 'Groups.Colors.HeaderText - FF0078D7'
-            ExplicitLeft = 2
-            ExplicitTop = 25
-            ExplicitWidth = 392
             object ACLImageComboBox2: TACLImageComboBox
               Left = 7
               Top = 16
@@ -838,7 +820,6 @@ object mainForm: TmainForm
               StyleButton.Collection = ACLResourceCollection1
               StyleDropDownList.Collection = ACLResourceCollection1
               StyleDropDownListScrollBox.Collection = ACLResourceCollection1
-              ExplicitWidth = 378
             end
             object ACLCheckBox1: TACLCheckBox
               Left = 7
@@ -869,7 +850,6 @@ object mainForm: TmainForm
             StyleCaption.ColorText.Value = xFF0078D7
             StyleCaption.ColorText.ID = 'Groups.Colors.HeaderText - FF0078D7'
             Transparent = True
-            ExplicitTop = 81
             object aclComboAspectRatio: TACLImageComboBox
               Left = 7
               Top = 16
@@ -959,7 +939,6 @@ object mainForm: TmainForm
               StyleButton.Collection = ACLResourceCollection1
               StyleDropDownList.Collection = ACLResourceCollection1
               StyleDropDownListScrollBox.Collection = ACLResourceCollection1
-              ExplicitWidth = 378
             end
             object gridImgSize: TGridPanel
               Left = 7
@@ -995,11 +974,10 @@ object mainForm: TmainForm
                 end>
               ShowCaption = False
               TabOrder = 1
-              ExplicitHeight = 42
               object aclsliderWidth: TACLSlider
                 Left = 5
                 Top = 1
-                Width = 185
+                Width = 184
                 Height = 45
                 Align = alClient
                 TabOrder = 0
@@ -1016,14 +994,11 @@ object mainForm: TmainForm
                 OptionsValue.Paginate = True
                 Position = 512.000000000000000000
                 OnChange = aclsliderWidthChange
-                ExplicitLeft = 1
-                ExplicitTop = -4
-                ExplicitWidth = 92
               end
               object aclsliderHeight: TACLSlider
-                Left = 194
+                Left = 193
                 Top = 1
-                Width = 185
+                Width = 184
                 Height = 45
                 Align = alClient
                 TabOrder = 1
@@ -1040,8 +1015,6 @@ object mainForm: TmainForm
                 OptionsValue.Paginate = True
                 Position = 512.000000000000000000
                 OnChange = aclsliderHeightChange
-                ExplicitLeft = 191
-                ExplicitWidth = 190
               end
             end
           end
@@ -1054,8 +1027,6 @@ object mainForm: TmainForm
             TabOrder = 2
             Caption = 'TAESD'
             StyleCaption.Collection = ACLResourceCollection1
-            ExplicitLeft = 4
-            ExplicitTop = 52
             object ACLImageComboBox3: TACLImageComboBox
               Left = 7
               Top = 16
@@ -1088,7 +1059,6 @@ object mainForm: TmainForm
               StyleButton.Collection = ACLResourceCollection1
               StyleDropDownList.Collection = ACLResourceCollection1
               StyleDropDownListScrollBox.Collection = ACLResourceCollection1
-              ExplicitWidth = 378
             end
           end
           object GridPanel2: TGridPanel
@@ -1189,7 +1159,6 @@ object mainForm: TmainForm
               end>
             ShowCaption = False
             TabOrder = 3
-            ExplicitTop = 206
             object cbSchedule: TACLComboBox
               Left = 199
               Top = 27
@@ -1213,9 +1182,6 @@ object mainForm: TmainForm
               StyleDropDownList.Collection = ACLResourceCollection1
               StyleDropDownListScrollBox.Collection = ACLResourceCollection1
               Text = 'Default'
-              ExplicitLeft = 0
-              ExplicitTop = 205
-              ExplicitWidth = 396
             end
             object cbSampleMethod: TACLComboBox
               Left = 3
@@ -1244,9 +1210,6 @@ object mainForm: TmainForm
               StyleDropDownList.Collection = ACLResourceCollection1
               StyleDropDownListScrollBox.Collection = ACLResourceCollection1
               Text = 'Euler A'
-              ExplicitLeft = 0
-              ExplicitTop = 156
-              ExplicitWidth = 396
             end
             object lblSampleMethod: TACLLabel
               AlignWithMargins = True
@@ -1361,9 +1324,6 @@ object mainForm: TmainForm
               Style.ColorBorderFocused.ID = 'Category.Colors.Border2'
               StyleButton.Collection = ACLResourceCollection1
               StyleDropDownList.Collection = ACLResourceCollection1
-              ExplicitLeft = 0
-              ExplicitTop = 204
-              ExplicitWidth = 396
             end
             object edSeed: TACLEdit
               Left = 199
@@ -1386,9 +1346,6 @@ object mainForm: TmainForm
               Style.Collection = ACLResourceCollection1
               StyleButton.Collection = ACLResourceCollection1
               Text = '0'
-              ExplicitLeft = 0
-              ExplicitTop = 465
-              ExplicitWidth = 396
             end
             object lblCFG: TACLLabel
               AlignWithMargins = True
@@ -1484,8 +1441,6 @@ object mainForm: TmainForm
               OptionsValue.Paginate = True
               Position = 15.000000000000000000
               OnChange = sldCFGChange
-              ExplicitLeft = 2
-              ExplicitTop = 138
             end
             object sldSteps: TACLSlider
               Left = 199
@@ -1508,9 +1463,6 @@ object mainForm: TmainForm
               OptionsValue.Paginate = True
               Position = 20.000000000000000000
               OnChange = sldStepsChange
-              ExplicitLeft = 0
-              ExplicitTop = 81
-              ExplicitWidth = 396
             end
           end
         end
@@ -1569,140 +1521,96 @@ object mainForm: TmainForm
       end
       object ACLGroupBox1: TACLGroupBox
         Left = 32
-        Top = 152
-        Width = 809
-        Height = 241
+        Top = 158
+        Width = 1073
+        Height = 452
         TabOrder = 1
         Caption = 'Stable Diffusion CPP'
+        object Label1: TLabel
+          Left = 7
+          Top = 17
+          Width = 773
+          Height = 45
+          Caption = 
+            'Stable Diffusion CPP executables are going to be downloaded from' +
+            ' GitHub releases directly. There are many forks appart and obvio' +
+            'usly the official one. Here you can add more, maybe yours too, f' +
+            'rom where to download.It will recognize Windows only releases, l' +
+            'ike avx, avx2, avx512, cuda12, noavx, rocm5.5 and vulkan given i' +
+            't has "win" text in the zip file.'
+          WordWrap = True
+        end
         object ACLButton1: TACLButton
-          Left = 672
-          Top = 24
+          Left = 786
+          Top = 68
           Width = 120
           Height = 25
           TabOrder = 0
           OnClick = ACLButton1Click
           Caption = 'Check new version'
+          DropDownMenu = pmRepos
+          Kind = sbkDropDownButton
         end
-        object ACLRadioBox1: TACLRadioBox
-          Left = 24
-          Top = 32
-          Width = 39
-          Height = 17
+        object setEdNewGitHub: TACLEdit
+          Left = 16
+          Top = 72
+          Width = 609
+          Height = 23
           TabOrder = 1
-          Caption = 'avx'
-          Checked = False
+          Buttons = <>
+          Text = ''
         end
-        object ACLRadioBox2: TACLRadioBox
-          Left = 24
-          Top = 55
-          Width = 45
-          Height = 17
+        object ACLButton2: TACLButton
+          Left = 639
+          Top = 68
+          Width = 120
+          Height = 25
           TabOrder = 2
-          Caption = 'avx2'
-          Checked = False
+          OnClick = ACLButton2Click
+          Caption = 'Add this repo'
         end
-        object ACLRadioBox3: TACLRadioBox
-          Left = 24
-          Top = 78
-          Width = 57
-          Height = 17
-          TabOrder = 3
-          Caption = 'avx512'
-          Checked = False
-        end
-        object ACLRadioBox4: TACLRadioBox
-          Left = 24
+        object pnlSDFlavors: TACLPanel
+          Left = 406
           Top = 101
-          Width = 59
-          Height = 17
+          Width = 643
+          Height = 332
+          TabOrder = 3
+          object ScrollBox2: TScrollBox
+            Left = 2
+            Top = 2
+            Width = 639
+            Height = 328
+            Align = alClient
+            TabOrder = 0
+            UseWheelForScrolling = True
+            object StackPanel1: TStackPanel
+              Left = 0
+              Top = 0
+              Width = 618
+              Height = 342
+              Align = alTop
+              AutoSize = True
+              Color = clBackground
+              ControlCollection = <>
+              ParentBackground = False
+              TabOrder = 0
+            end
+          end
+        end
+        object ACLTreeList1: TACLTreeList
+          Left = 16
+          Top = 101
+          Width = 377
+          Height = 332
           TabOrder = 4
-          Caption = 'cuda12'
-          Checked = True
-        end
-        object ACLRadioBox5: TACLRadioBox
-          Left = 24
-          Top = 124
-          Width = 53
-          Height = 17
-          TabOrder = 5
-          Caption = 'noavx'
-          Checked = False
-        end
-        object ACLRadioBox6: TACLRadioBox
-          Left = 24
-          Top = 147
-          Width = 64
-          Height = 17
-          TabOrder = 6
-          Caption = 'rocm5.5'
-          Checked = False
-        end
-        object ACLRadioBox7: TACLRadioBox
-          Left = 24
-          Top = 170
-          Width = 56
-          Height = 17
-          TabOrder = 7
-          Caption = 'vulkan'
-          Checked = False
-        end
-        object UWPDownloader1: TUWPDownloader
-          Left = 7
-          Top = 196
-          Width = 795
-          Height = 38
-          Align = alBottom
-          Caption = 'Stable Diffusion CPP'
-          TabOrder = 8
-          OnClick = UWPDownloader1Click
-          OnDblClick = UWPDownloader1DblClick
-          AniSet.AniKind = akOut
-          AniSet.AniFunctionKind = afkQuartic
-          AniSet.DelayStartTime = 0
-          AniSet.Duration = 250
-          AniSet.Step = 25
-          OnDownloaded = UWPDownloader1Downloaded
-          URL = ''
-          Header = ''
-          UserAgent = ''
-          SavePath = ''
-          IconFont.Charset = DEFAULT_CHARSET
-          IconFont.Color = clWindowText
-          IconFont.Height = -21
-          IconFont.Name = 'Segoe MDL2 Assets'
-          IconFont.Style = []
-          CustomBackColor.Enabled = False
-          CustomBackColor.LightNone = 15132390
-          CustomBackColor.LightHover = 13619151
-          CustomBackColor.LightPress = 8947848
-          CustomBackColor.LightSelectedNone = 127
-          CustomBackColor.LightSelectedHover = 103
-          CustomBackColor.LightSelectedPress = 89
-          CustomBackColor.DarkNone = 2039583
-          CustomBackColor.DarkHover = 3487029
-          CustomBackColor.DarkPress = 5000268
-          CustomBackColor.DarkSelectedNone = 89
-          CustomBackColor.DarkSelectedHover = 103
-          CustomBackColor.DarkSelectedPress = 127
-          FontIcon = #59219
-          DownloadStartIcon = #57624
-          DownloadPauseIcon = #57603
-          DownloadCancelIcon = #57610
-          DownloadRestartIcon = #57673
-          Detail = 'cuda12'
-          ExtraDetail = 'current version 1.3'
-          Status = '5%'
-          ProgressTop = 'Message 1'
-          ProgressBottom = '0kb/s'
-          ProxyHost = ''
-          ProxyPort = 0
-        end
-        object Memo1: TMemo
-          Left = 160
-          Top = 32
-          Width = 361
-          Height = 145
-          TabOrder = 9
+          Columns = <
+            item
+              Caption = 'Name'
+            end
+            item
+              Caption = 'Repository'
+            end>
+          OptionsBehavior.AutoBestFit = True
         end
       end
       object ACLButton3: TACLButton
@@ -1776,14 +1684,16 @@ object mainForm: TmainForm
     object RzTabControl1: TRzTabControl
       Left = 48
       Top = 0
-      Width = 330
-      Height = 97
+      Width = 350
+      Height = 95
       Hint = ''
       BackgroundColor = clBackground
+      BoldCurrentTab = True
       Color = clBackground
       Images = VirtualImageList1
       ParentBackgroundColor = False
       ParentColor = False
+      ShowShadow = False
       TabIndex = 0
       TabOrder = 0
       Tabs = <
@@ -1806,8 +1716,8 @@ object mainForm: TmainForm
         item
           ImageIndex = 7
         end>
-      TabStyle = tsRoundCorners
-      Transparent = True
+      TabStop = False
+      TabStyle = tsSquareCorners
       OnChange = RzTabControl1Change
       FixedDimension = 30
     end
@@ -1825,26 +1735,27 @@ object mainForm: TmainForm
     TabOrder = 3
   end
   object container: TPanel
-    Left = 793
-    Top = 272
-    Width = 943
-    Height = 476
+    Left = 404
+    Top = 43
+    Width = 242
+    Height = 23
     BevelOuter = bvNone
     Color = clBlack
     ParentBackground = False
     TabOrder = 4
     StyleElements = [seFont, seBorder]
-    DesignSize = (
-      943
-      476)
     object activitySplash: TACLActivityIndicator
-      Left = 440
-      Top = 231
-      Width = 103
+      Left = 0
+      Top = 0
+      Width = 242
       Height = 15
-      Anchors = [akLeft, akTop, akRight, akBottom]
+      Align = alTop
+      Alignment = taCenter
       Style.Collection = ACLResourceCollection1
       Caption = 'Loading'
+      ExplicitLeft = -89
+      ExplicitTop = 40
+      ExplicitWidth = 103
     end
   end
   object VirtualImageList1: TVirtualImageList
@@ -152376,6 +152287,7 @@ object mainForm: TmainForm
     Top = 448
   end
   object ACLApplicationController1: TACLApplicationController
+    DarkMode = False
     Left = 853
     Top = 417
   end
@@ -153103,19 +153015,19 @@ object mainForm: TmainForm
     Left = 560
     Top = 264
   end
-  object ShellMonitorManager1: TShellMonitorManager
+  object ShellMonitorManager1: TCBShellMonitorManager
     Left = 584
     Top = 568
   end
-  object DirectoryMonitor1: TDirectoryMonitor
+  object DirectoryMonitor1: TCBDirectoryMonitor
     Manager = ShellMonitorManager1
     Recursive = False
     OnCreated = DirectoryMonitor1Created
     OnDeleted = DirectoryMonitor1Deleted
-    Left = 745
-    Top = 552
+    Left = 865
+    Top = 496
   end
-  object procSDServer: TDosCommandEx
+  object procSDServer: TCBDosCommandEx
     InputToOutput = False
     MaxTimeAfterBeginning = 0
     MaxTimeAfterLastOutput = 0
@@ -153226,7 +153138,25 @@ object mainForm: TmainForm
     Columns = <>
     ShortCut = 16416
     Editor = sedPrompt
-    Left = 736
-    Top = 240
+    Left = 936
+    Top = 112
+  end
+  object pmSDFlavors: TACLPopupMenu
+    Left = 328
+    Top = 676
+    object N6: TACLMenuItem
+      Caption = 'MenuItem'
+    end
+    object N7: TACLMenuItem
+      Caption = 'MenuItem'
+    end
+    object N8: TACLMenuItem
+      Caption = 'MenuItem'
+    end
+  end
+  object pmRepos: TACLPopupMenu
+    OnPopup = pmReposPopup
+    Left = 232
+    Top = 445
   end
 end
