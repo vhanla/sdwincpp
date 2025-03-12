@@ -3,7 +3,7 @@ object mainForm: TmainForm
   Top = 0
   AlphaBlend = True
   Caption = 'Stable Difussion CPP Windows GUI'
-  ClientHeight = 715
+  ClientHeight = 684
   ClientWidth = 1133
   Color = clBtnFace
   CustomTitleBar.CaptionAlignment = taRightJustify
@@ -39,7 +39,7 @@ object mainForm: TmainForm
     Left = 0
     Top = 31
     Width = 0
-    Height = 665
+    Height = 634
     Opened = False
     OpenedWidth = 200
     Placement = svpLeft
@@ -49,7 +49,7 @@ object mainForm: TmainForm
     Left = 0
     Top = 31
     Width = 1133
-    Height = 665
+    Height = 634
     Align = alClient
     ActiveCard = Card1
     BevelOuter = bvNone
@@ -59,7 +59,7 @@ object mainForm: TmainForm
       Left = 0
       Top = 0
       Width = 1133
-      Height = 665
+      Height = 634
       Caption = 'Card1'
       CardIndex = 0
       TabOrder = 0
@@ -67,7 +67,7 @@ object mainForm: TmainForm
         Left = 417
         Top = 0
         Width = 8
-        Height = 665
+        Height = 634
         Control = ScrollBox1
         ExplicitLeft = 193
         ExplicitHeight = 474
@@ -76,7 +76,7 @@ object mainForm: TmainForm
         Left = 425
         Top = 0
         Width = 708
-        Height = 665
+        Height = 634
         Align = alClient
         TabOrder = 0
         object Splitter1: TSplitter
@@ -87,22 +87,19 @@ object mainForm: TmainForm
           Cursor = crVSplit
           Align = alTop
           Beveled = True
-          ExplicitWidth = 195
         end
         object splitImgExplorer: TACLSplitter
           Left = 176
           Top = 10
           Width = 8
-          Height = 388
+          Height = 357
           Control = pnlt2iViewer
-          ExplicitLeft = -333
-          ExplicitHeight = 114
         end
         object pnlt2iExplorer: TACLPanel
           Left = 2
           Top = 10
           Width = 174
-          Height = 388
+          Height = 357
           Align = alClient
           TabOrder = 0
           object rkSmartPath1: TrkSmartPath
@@ -149,7 +146,7 @@ object mainForm: TmainForm
             Left = 2
             Top = 27
             Width = 170
-            Height = 220
+            Height = 189
             FixedPane = fpLowerRight
             Orientation = orVertical
             Position = 0
@@ -176,7 +173,7 @@ object mainForm: TmainForm
             Left = 2
             Top = 27
             Width = 170
-            Height = 220
+            Height = 189
             Align = alClient
             BackGround.AlphaBlend = True
             CellSizes.Thumbnail.Height = 286
@@ -247,7 +244,7 @@ object mainForm: TmainForm
           end
           object pnlPicInfo: TACLPanel
             Left = 2
-            Top = 250
+            Top = 219
             Width = 170
             Height = 136
             Align = alBottom
@@ -265,7 +262,7 @@ object mainForm: TmainForm
           end
           object splitExplorer: TJvxSplitter
             Left = 2
-            Top = 247
+            Top = 216
             Width = 170
             Height = 3
             ControlFirst = xpListView
@@ -275,7 +272,7 @@ object mainForm: TmainForm
         end
         object CollapsePanel1: TCBCollapsePanel
           Left = 2
-          Top = 398
+          Top = 367
           Width = 704
           Height = 265
           Align = alBottom
@@ -331,22 +328,20 @@ object mainForm: TmainForm
             Lines.Strings = (
               'Infer output:')
             ScrollbarAnnotations = <>
-            SelectedColor.Alpha = 0.400000005960464500
-            VisibleSpecialChars = []
           end
         end
         object pnlt2iViewer: TACLPanel
           Left = 184
           Top = 10
           Width = 522
-          Height = 388
+          Height = 357
           Align = alRight
           TabOrder = 2
           object aclCatImage: TACLCategory
             Left = 2
             Top = 2
             Width = 518
-            Height = 384
+            Height = 353
             Align = alClient
             TabOrder = 0
             Caption = 'Images'
@@ -354,7 +349,7 @@ object mainForm: TmainForm
               Left = 7
               Top = 29
               Width = 504
-              Height = 348
+              Height = 317
               TabOrder = 0
               Layout = Horizontal
               object ACLDockPanel1: TACLDockPanel
@@ -368,7 +363,7 @@ object mainForm: TmainForm
                   Left = 5
                   Top = 5
                   Width = 494
-                  Height = 338
+                  Height = 307
                   Align = alClient
                   Bitmap.ResamplerClassName = 'TNearestResampler'
                   BitmapAlign = baCustom
@@ -395,16 +390,16 @@ object mainForm: TmainForm
         Left = 0
         Top = 0
         Width = 417
-        Height = 665
+        Height = 634
         HorzScrollBar.Visible = False
-        VertScrollBar.Position = 169
+        VertScrollBar.Position = 137
         VertScrollBar.Smooth = True
         Align = alLeft
         TabOrder = 1
         object ACLSplitter4: TACLSplitter
           Left = 0
-          Top = 661
-          Width = 396
+          Top = 693
+          Width = 392
           Height = 0
           Control = pnlt2iInferer
           ExplicitTop = 469
@@ -413,8 +408,8 @@ object mainForm: TmainForm
         end
         object pnlt2iInferer: TACLPanel
           Left = 0
-          Top = 261
-          Width = 396
+          Top = 293
+          Width = 392
           Height = 400
           Align = alTop
           TabOrder = 0
@@ -422,7 +417,7 @@ object mainForm: TmainForm
             AlignWithMargins = True
             Left = 5
             Top = 342
-            Width = 386
+            Width = 382
             Height = 22
             Align = alBottom
             Style.ColorActivity2.Value = xFF22CD39
@@ -439,7 +434,7 @@ object mainForm: TmainForm
             AlignWithMargins = True
             Left = 5
             Top = 10
-            Width = 386
+            Width = 382
             Height = 15
             Margins.Top = 8
             Align = alTop
@@ -456,7 +451,7 @@ object mainForm: TmainForm
             AlignWithMargins = True
             Left = 5
             Top = 281
-            Width = 386
+            Width = 382
             Height = 15
             Margins.Top = 8
             Align = alBottom
@@ -472,7 +467,7 @@ object mainForm: TmainForm
             AlignWithMargins = True
             Left = 10
             Top = 370
-            Width = 376
+            Width = 372
             Height = 25
             Margins.Left = 8
             Margins.Right = 8
@@ -540,14 +535,14 @@ object mainForm: TmainForm
           object pnlPrompt: TACLPanel
             Left = 2
             Top = 59
-            Width = 392
+            Width = 388
             Height = 214
             Align = alClient
             TabOrder = 1
             object Splitter2: TSplitter
               Left = 2
               Top = 152
-              Width = 388
+              Width = 384
               Height = 8
               Cursor = crVSplit
               Align = alTop
@@ -558,7 +553,7 @@ object mainForm: TmainForm
             object sedPrompt: TSynEdit
               Left = 2
               Top = 2
-              Width = 388
+              Width = 384
               Height = 150
               Hint = 'Main Prompt'
               Align = alTop
@@ -599,15 +594,12 @@ object mainForm: TmainForm
                 end>
               Lines.Strings = (
                 'sedPrompt')
-              Options = [eoAutoIndent, eoDisableScrollArrows, eoDragDropEditing, eoDropFiles, eoEnhanceHomeKey, eoEnhanceEndKey, eoGroupUndo, eoHideShowScrollbars, eoKeepCaretX, eoRightMouseMovesCursor, eoShowScrollHint, eoSmartTabDelete, eoTabIndent, eoTabsToSpaces, eoShowLigatures]
               ScrollbarAnnotations = <>
-              SelectedColor.Alpha = 0.400000005960464500
-              VisibleSpecialChars = []
             end
             object sedNegPrompt: TSynEdit
               Left = 2
               Top = 160
-              Width = 388
+              Width = 384
               Height = 52
               Hint = 'Negative Prompt'
               Align = alClient
@@ -647,16 +639,13 @@ object mainForm: TmainForm
                 end>
               Lines.Strings = (
                 'SynEdit1')
-              Options = [eoAutoIndent, eoDisableScrollArrows, eoDragDropEditing, eoDropFiles, eoEnhanceHomeKey, eoEnhanceEndKey, eoGroupUndo, eoHideShowScrollbars, eoKeepCaretX, eoRightMouseMovesCursor, eoShowScrollHint, eoSmartTabDelete, eoTabIndent, eoTabsToSpaces, eoShowLigatures]
               ScrollbarAnnotations = <>
-              SelectedColor.Alpha = 0.400000005960464500
-              VisibleSpecialChars = []
             end
           end
           object GridPanel1: TGridPanel
             Left = 2
             Top = 28
-            Width = 392
+            Width = 388
             Height = 31
             Align = alTop
             Caption = 'GridPanel1'
@@ -691,7 +680,7 @@ object mainForm: TmainForm
             object imcbSDModels: TACLImageComboBox
               Left = 1
               Top = 1
-              Width = 318
+              Width = 314
               Height = 23
               Hint = 'Stable Diffusion Model'
               Align = alClient
@@ -713,7 +702,7 @@ object mainForm: TmainForm
               StyleDropDownListScrollBox.Collection = ACLResourceCollection1
             end
             object ACLComboBox4: TACLComboBox
-              Left = 319
+              Left = 315
               Top = 1
               Width = 72
               Height = 23
@@ -743,7 +732,7 @@ object mainForm: TmainForm
           object chkSDServer: TACLCheckBox
             Left = 2
             Top = 299
-            Width = 392
+            Width = 388
             Height = 17
             Align = alBottom
             TabOrder = 3
@@ -753,7 +742,7 @@ object mainForm: TmainForm
           object ACLComboBox1: TACLComboBox
             Left = 2
             Top = 316
-            Width = 392
+            Width = 388
             Height = 23
             Align = alBottom
             TabOrder = 4
@@ -770,8 +759,8 @@ object mainForm: TmainForm
         end
         object pnlParams: TACLPanel
           Left = 0
-          Top = -169
-          Width = 396
+          Top = -137
+          Width = 392
           Height = 430
           Align = alTop
           AlignOrder = 1
@@ -780,7 +769,7 @@ object mainForm: TmainForm
           object gbVAE: TACLGroupBox
             Left = 0
             Top = 0
-            Width = 396
+            Width = 392
             Height = 81
             Align = alTop
             TabOrder = 0
@@ -791,7 +780,7 @@ object mainForm: TmainForm
             object ACLImageComboBox2: TACLImageComboBox
               Left = 7
               Top = 16
-              Width = 382
+              Width = 378
               Height = 23
               Hint = 'Stable Diffusion Model'
               Align = alTop
@@ -841,7 +830,7 @@ object mainForm: TmainForm
           object gbImageSize: TACLGroupBox
             Left = 0
             Top = 144
-            Width = 396
+            Width = 392
             Height = 93
             Align = alTop
             TabOrder = 1
@@ -853,7 +842,7 @@ object mainForm: TmainForm
             object aclComboAspectRatio: TACLImageComboBox
               Left = 7
               Top = 16
-              Width = 382
+              Width = 378
               Height = 23
               Align = alTop
               TabOrder = 0
@@ -943,7 +932,7 @@ object mainForm: TmainForm
             object gridImgSize: TGridPanel
               Left = 7
               Top = 39
-              Width = 382
+              Width = 378
               Height = 47
               Align = alClient
               Caption = 'gridImgSize'
@@ -977,7 +966,7 @@ object mainForm: TmainForm
               object aclsliderWidth: TACLSlider
                 Left = 5
                 Top = 1
-                Width = 184
+                Width = 182
                 Height = 45
                 Align = alClient
                 TabOrder = 0
@@ -996,9 +985,9 @@ object mainForm: TmainForm
                 OnChange = aclsliderWidthChange
               end
               object aclsliderHeight: TACLSlider
-                Left = 193
+                Left = 191
                 Top = 1
-                Width = 184
+                Width = 182
                 Height = 45
                 Align = alClient
                 TabOrder = 1
@@ -1021,7 +1010,7 @@ object mainForm: TmainForm
           object gbTAESD: TACLGroupBox
             Left = 0
             Top = 81
-            Width = 396
+            Width = 392
             Height = 63
             Align = alTop
             TabOrder = 2
@@ -1030,7 +1019,7 @@ object mainForm: TmainForm
             object ACLImageComboBox3: TACLImageComboBox
               Left = 7
               Top = 16
-              Width = 382
+              Width = 378
               Height = 23
               Hint = 'Stable Diffusion Model'
               Align = alTop
@@ -1064,7 +1053,7 @@ object mainForm: TmainForm
           object GridPanel2: TGridPanel
             Left = 0
             Top = 237
-            Width = 396
+            Width = 392
             Height = 181
             Align = alTop
             Caption = 'GridPanel2'
@@ -1160,9 +1149,9 @@ object mainForm: TmainForm
             ShowCaption = False
             TabOrder = 3
             object cbSchedule: TACLComboBox
-              Left = 199
+              Left = 197
               Top = 27
-              Width = 194
+              Width = 192
               Height = 23
               Align = alTop
               Anchors = []
@@ -1186,7 +1175,7 @@ object mainForm: TmainForm
             object cbSampleMethod: TACLComboBox
               Left = 3
               Top = 27
-              Width = 194
+              Width = 192
               Height = 23
               Align = alTop
               Anchors = []
@@ -1215,7 +1204,7 @@ object mainForm: TmainForm
               AlignWithMargins = True
               Left = 6
               Top = 9
-              Width = 188
+              Width = 186
               Height = 15
               Margins.Top = 8
               Align = alTop
@@ -1233,9 +1222,9 @@ object mainForm: TmainForm
             end
             object lblSchedule: TACLLabel
               AlignWithMargins = True
-              Left = 202
+              Left = 200
               Top = 9
-              Width = 188
+              Width = 186
               Height = 15
               Margins.Top = 8
               Align = alTop
@@ -1255,7 +1244,7 @@ object mainForm: TmainForm
               AlignWithMargins = True
               Left = 6
               Top = 65
-              Width = 188
+              Width = 186
               Height = 15
               Margins.Top = 8
               Align = alTop
@@ -1273,9 +1262,9 @@ object mainForm: TmainForm
             end
             object lblSeed: TACLLabel
               AlignWithMargins = True
-              Left = 202
+              Left = 200
               Top = 65
-              Width = 188
+              Width = 186
               Height = 15
               Margins.Top = 8
               Align = alTop
@@ -1294,7 +1283,7 @@ object mainForm: TmainForm
             object cbClip: TACLImageComboBox
               Left = 3
               Top = 83
-              Width = 194
+              Width = 192
               Height = 23
               Hint = 'Stable Diffusion Model'
               Align = alTop
@@ -1326,9 +1315,9 @@ object mainForm: TmainForm
               StyleDropDownList.Collection = ACLResourceCollection1
             end
             object edSeed: TACLEdit
-              Left = 199
+              Left = 197
               Top = 83
-              Width = 194
+              Width = 192
               Height = 23
               Align = alTop
               Anchors = []
@@ -1351,7 +1340,7 @@ object mainForm: TmainForm
               AlignWithMargins = True
               Left = 6
               Top = 114
-              Width = 188
+              Width = 186
               Height = 15
               Margins.Bottom = 6
               Margins.Top = 8
@@ -1365,12 +1354,13 @@ object mainForm: TmainForm
               Font.Style = []
               ParentFont = False
               ExplicitTop = 110
+              ExplicitWidth = 188
             end
             object lblSteps: TACLLabel
               AlignWithMargins = True
-              Left = 202
+              Left = 200
               Top = 114
-              Width = 188
+              Width = 186
               Height = 15
               Margins.Bottom = 6
               Margins.Top = 8
@@ -1383,12 +1373,14 @@ object mainForm: TmainForm
               Font.Name = 'Segoe UI'
               Font.Style = []
               ParentFont = False
+              ExplicitLeft = 202
               ExplicitTop = 110
+              ExplicitWidth = 188
             end
             object sldCFG: TACLSlider
               Left = 3
               Top = 135
-              Width = 194
+              Width = 192
               Height = 45
               Hint = 
                 'Classifier-Free Guidance : '#13#10'The CFG (Classifier-Free Guidance) ' +
@@ -1443,9 +1435,9 @@ object mainForm: TmainForm
               OnChange = sldCFGChange
             end
             object sldSteps: TACLSlider
-              Left = 199
+              Left = 197
               Top = 135
-              Width = 194
+              Width = 192
               Height = 45
               Align = alTop
               Anchors = []
@@ -1472,7 +1464,7 @@ object mainForm: TmainForm
       Left = 0
       Top = 0
       Width = 1133
-      Height = 665
+      Height = 634
       Caption = 'Card2'
       CardIndex = 1
       TabOrder = 1
@@ -1481,7 +1473,7 @@ object mainForm: TmainForm
       Left = 0
       Top = 0
       Width = 1133
-      Height = 665
+      Height = 634
       Caption = 'crdFlux'
       CardIndex = 2
       TabOrder = 2
@@ -1490,7 +1482,7 @@ object mainForm: TmainForm
       Left = 0
       Top = 0
       Width = 1133
-      Height = 665
+      Height = 634
       Caption = 'crdSettings'
       CardIndex = 3
       TabOrder = 3
@@ -1510,8 +1502,8 @@ object mainForm: TmainForm
       end
       object LabeledEdit1: TLabeledEdit
         Left = 32
-        Top = 73
-        Width = 298
+        Top = 70
+        Width = 522
         Height = 23
         EditLabel.Width = 155
         EditLabel.Height = 15
@@ -1540,9 +1532,17 @@ object mainForm: TmainForm
             't has "win" text in the zip file.'
           WordWrap = True
         end
+        object lblVersion: TACLValidationLabel
+          Left = 763
+          Top = 79
+          Width = 60
+          Height = 16
+          Caption = 'Version'
+          Icon = vliSuccess
+        end
         object ACLButton1: TACLButton
-          Left = 786
-          Top = 68
+          Left = 637
+          Top = 72
           Width = 120
           Height = 25
           TabOrder = 0
@@ -1554,15 +1554,15 @@ object mainForm: TmainForm
         object setEdNewGitHub: TACLEdit
           Left = 16
           Top = 72
-          Width = 609
+          Width = 489
           Height = 23
           TabOrder = 1
           Buttons = <>
           Text = ''
         end
         object ACLButton2: TACLButton
-          Left = 639
-          Top = 68
+          Left = 511
+          Top = 72
           Width = 120
           Height = 25
           TabOrder = 2
@@ -1586,7 +1586,7 @@ object mainForm: TmainForm
             object StackPanel1: TStackPanel
               Left = 0
               Top = 0
-              Width = 618
+              Width = 614
               Height = 342
               Align = alTop
               AutoSize = True
@@ -1614,10 +1614,10 @@ object mainForm: TmainForm
         end
       end
       object ACLButton3: TACLButton
-        Left = 344
-        Top = 72
+        Left = 560
+        Top = 70
         Width = 33
-        Height = 25
+        Height = 23
         TabOrder = 2
         OnClick = ACLButton3Click
         Caption = '...'
@@ -1625,7 +1625,7 @@ object mainForm: TmainForm
       object LabeledEdit2: TLabeledEdit
         Left = 32
         Top = 114
-        Width = 298
+        Width = 522
         Height = 23
         EditLabel.Width = 58
         EditLabel.Height = 15
@@ -1634,10 +1634,10 @@ object mainForm: TmainForm
         Text = ''
       end
       object ACLButton4: TACLButton
-        Left = 344
-        Top = 111
+        Left = 560
+        Top = 114
         Width = 33
-        Height = 25
+        Height = 23
         TabOrder = 4
         OnClick = ACLButton4Click
         Caption = '...'
@@ -1647,7 +1647,7 @@ object mainForm: TmainForm
       Left = 0
       Top = 0
       Width = 1133
-      Height = 665
+      Height = 634
       Caption = 'Card3'
       CardIndex = 4
       TabOrder = 4
@@ -1677,9 +1677,27 @@ object mainForm: TmainForm
       Spacing = 0
       OnClick = RzToolbarButton1Click
       HotNumGlyphs = 0
-      ExplicitLeft = 374
-      ExplicitTop = 6
-      ExplicitHeight = 22
+      ExplicitLeft = 1004
+    end
+    object RzToolbarButton2: TRzToolbarButton
+      AlignWithMargins = True
+      Left = 904
+      Top = 3
+      Width = 40
+      Height = 25
+      Cursor = crHandPoint
+      Align = alRight
+      Caption = ''
+      ImageIndex = 0
+      ImageName = 'themeDefault'
+      Images = VirtualImageList2
+      Flat = False
+      Spacing = 0
+      OnClick = RzToolbarButton2Click
+      HotNumGlyphs = 0
+      ShowCaption = False
+      ExplicitLeft = 992
+      SaveCaption = ' '#59142
     end
     object RzTabControl1: TRzTabControl
       Left = 48
@@ -1724,14 +1742,14 @@ object mainForm: TmainForm
   end
   object RzStatusBar1: TRzStatusBar
     Left = 0
-    Top = 696
+    Top = 665
     Width = 1133
     Height = 19
     BorderInner = fsNone
     BorderOuter = fsNone
     BorderSides = [sdLeft, sdTop, sdRight, sdBottom]
     BorderWidth = 0
-    Color = 2829099
+    Color = 15987699
     TabOrder = 3
   end
   object container: TPanel
@@ -152250,6 +152268,165 @@ object mainForm: TmainForm
               0000000000000000000000000000000000000000000000000000000000000000
               000000301DFF05699B5CE6C033CCA10000000049454E44AE426082}
           end>
+      end
+      item
+        Name = 'themeDefault'
+        SourceImages = <
+          item
+            Image.Data = {
+              89504E470D0A1A0A0000000D49484452000000370000001C0806000000C5B027
+              B3000000097048597300000EC300000EC301C76FA86400000665494441545885
+              BD585B4C545714DD0C23F21A84C2206F1105A5061F041050AB086AABFE50FDD0
+              20F5473F1C6B245A874488FAA3CD447F88FDF18FB492DAC490F8415B8D4689B1
+              7650D188918A82084290CA6B86F7636ED73EC990193A73B9676ABA923377CEBD
+              E7EC7BF6D9FBACBDF7F5230D080C0CDC9C9E9EFE2DAE9993939346DC322C5CB8
+              90FE2FE4E4E48C6DD8B0A147A7D3B58C8C8C747DF8F0A1F6D4A95375F3CD5355
+              2E3737B7044A58060707E33B3A3A68606040F382FCFCFC68E9D2A59492924291
+              9191949898487ABD9E46474709F2E8DDBB77A2B5B7B7ABCA292E2EB69F387182
+              E5189CF7B08EF1D7AF5F37757777FF7CF4E8D12ADC72685ED8AE5DBB220A0B0B
+              ADCB962D53D0956A504AC14E2B67CE9C51B0C38A1A7A7A7A14B3D9AC6467678B
+              7973654131DBFDFBF76D5D5D5D8AA7D6D2D2325E53535377EEDCB9CF3529565A
+              5A9A05C55AE102D28A198D46C5643229C3C3C38A0CE06ACA91234714587856D6
+              DEBD7BED6A8AB9B69B376F5ACF9F3FBF6DAE2EFEAE1DECE28AA74F9FFE02A169
+              7827C9202D2D8D2C160B95979753404080D4DC050B16B0B7507272323D7FFE9C
+              B0B923C78F1F77C015C3B4CC8F8E8E8E0F0E0E4E5DB264495B7D7DFDAC9FCF2A
+              77F2E4C9A8E6E6E61FEFDEBD9B4D92484A4AA2AAAA2ADAB3670FFD17AC5AB58A
+              366DDAA46464644C2E5FBEDC203317564F989A9A0AC206FDF1E0C1033BDFD339
+              1F8E8D8D95D7D5D56D965D105BE9D0A143B47BF76EFA1458BB76AD5F4C4C4C28
+              58597A6E7E7EFED798FB9DB32F94ABA8A8C881DF66D23CECE9093B76ECA0D3A7
+              4F6B1A7BE5CA154DE356AE5C49FDFDFD240B1C253D2C9F017DF2B92F94B3DBED
+              5FB5B6B66E911516111141959595E4EFEFAF693C8846B36C0E235817C9223E3E
+              7ECBA2458B8AF8BF0EC130E6D9B36711E4E2A25A01CA17CD131A1A1A08DEE076
+              0F0CE8D6E7E73CCE1378E33826CA82AD07228A2D2B2B0BD723EBF8C26AB5AE20
+              1F0056F3FA8C95BE73E70E21D651636323BD78F142B0226736CC8A99999922A8
+              7BDB1C068F75381C84B024B5AE356BD624C360457A04CFC88989893492445858
+              18EDDCB953750C2B7FF5EA557AFBF62D13165DB87041DC6F6A6A22B032EDDBB7
+              4F757E6C6C2CF5F5F511685E6A6D21212149D810236FC9345A1C49222121411C
+              7C3520032184173A78F02021379DBD0FAA172CDBDBDBAB3A1F6787C6C7C74916
+              70CD685CA6F5F809450B9415C02EE589489004D0EDDBB7292E2E8E82828268F1
+              E2C5220EB2055CB17DFB76BA75EB16C16BE8FDFBF754545444EBD6AD731BC3EE
+              383333433E200A2D584F3EC21B43F2029D8BACADADA5E9E969F19F5DF8F2E5CB
+              C28AEC669C8930F6EFDFEFD37BB48095637E66DB4B598FCF10075AB5546BE3C6
+              8DC2929CF9737AC6D6BC71E386E8731C0353CFFB1E26141FC0343BCACA71EB46
+              4B9199CD2C88A455C4236F40CE2752AA6BD7AE89717CEE9888D89ACC96C82654
+              DFF1F1E347E1DAB20049F6E0DCF9EBF0D307CA6D9115C035199F2D357028D8BA
+              752B53B3D888EAEA6A41304CFF7CC6F8B91A50AF49332503E7F82F5CFAFDD7AF
+              5FCF273D1D8563AEAC103EF0DEE89C833333DDEAD5AB29353595F2F2F204BB72
+              F6CFFDD0D050425624880659854719BC210683417659F4E4C9935FDBDADA7ED2
+              5DBC78B107C92A97D8D2CEFDF8F16311C33C81ADB36D9B7B8975FDFA75B73E3F
+              F716C4394CF8A2185CD2812A7DE8D2A54BBD22F443C86FA8BAEFC90AE29D4592
+              AA793C5B4B2B78D3108C49161D1D1DF7868686C4F715C1B3284EBB40C9198F1E
+              3DCA23C9CA80998FD3290ECCF3212B2B4B93CC972F5F8ADCD28730C055792D36
+              BC9A3BB3491B58C982F3502F2B8D33FDB367CF0ACAFF14E8ECEC1457D96A9E01
+              23DD43426071F667B7E6E1C387A3C5C5C57F222328C400A38C508E59588C826C
+              7C262A2A4ABABA7082BD80CB1CB69A2C90AF3683034A2D164BA7F39E9BDD519E
+              F715141458B1C042B0E7675ABFA3949494380E1F3EDC0EDA8EE4CF751CDF6432
+              790ED46C799E131E1E4E32E0B960E6369CFF12B3D9DCE4FACCE3F9E24F7BA0F1
+              DFB1D09C376FDEA80A3F70E080E3D8B163ED48A4539C2F73E6911CB4D5DC6B6A
+              6A8A5EBD7A25AE46A351BAB46117462C6C4082FEA5C964FAD7475555F2004D7F
+              837AEF7B9BCD16C71699FB5176AE62AE6025C15A221BE1FF73BD80C9C2692919
+              E2C05A44B501F7ED46F26E46CE5AE36DACD6CFE905B082C9F9391DB1C480D031
+              030BDBE0C2F20744125CE46223EC78F7DFF0844654193F20119887FC88FE0125
+              C952421FFD0A920000000049454E44AE426082}
+          end>
+      end
+      item
+        Name = 'themeDark'
+        SourceImages = <
+          item
+            Image.Data = {
+              89504E470D0A1A0A0000000D49484452000000370000001C0806000000C5B027
+              B3000000097048597300000EC300000EC301C76FA86400000476494441545885
+              C5585B2C6C67145EC618D731A628117117E64182D635D29EE1454348C4032925
+              E1494A22AE8D44D3789094474D44E245F4C10B1E348DD0A22F34718B4C862822
+              844A8EE35AD7E2EFB77632CD39A9D9C738E6EF97FCF3EFD9D97BFFEBFB2F6B7D
+              6BB9D013E0E1E1F1B9C964FA1A7DF2EDED6D206EE9DDDDDD49166E6E6EB83BD7
+              E974AF71BD60B55A7FB8BEBE9E79DF7BAAE4D2D3D3BFC407BF3F3B3B0BF1F1F1
+              A1E8E8684A49492183C140BEBEBE8401686F6F8FD6D6D668616181969696E8E1
+              E1819C09A3D148E1E1E13CFE2E26FA9BB9B9B91F1DFA405E5E9E312727E7F7D8
+              D858919F9F2F86868604664CA80144C5C8C888282828101A8D46E0334E6F986C
+              C176B2BD4F22565E5EFE295ED80C0B0B137D7D7DE2FEFE5E3882BBBB3BD1DFDF
+              2F30BB5208F244B2BD1515159FA8126B6E6E8EC356B4A289E5E565F121585C5C
+              1449494952087263BBD9FE4789353434046079A7121212C4F6F6B67809582C16
+              0147248D20ECFF9579FC875C4D4D4D979F9F9F989999112F89E1E161E1E9E929
+              8BE003F37887585B5B5B2A0EE72F5856E10CD4D7D74B5B3DE6C17C9897867FCE
+              CFCFBF802330B7B6B69233505B5B4B81818124039B9B9BAF2E2F2FF3F85AD3D4
+              D4140CE76184CB77E118A286DDDD5DAAABAB239C4987068C8C8CA4C2C2429204
+              0DE2ADA1B1B1F1630D54C767F3F3F3A6A2A222D537A00A687C7C9CE2E2E22822
+              22C2E11173737349166667676371CE5F695C5C5CFCBDBDBD4DC9C9C9761F66D5
+              31363646D5D5D584B8F2AC01E1AA15552303101CF1E83E624BEF82828282E129
+              ED3E3C3D3D4DC5C5C5CA35FCC3B3060C09092108039284602CDA3D93F3C18CBA
+              A93DB9B1B141515151CA75666626215C383C1A0663014E92E0C54DD96310A0AA
+              4FBEBD5A89898904F5413B3B3B0E8FE8EAEA4A32A145FBEBEAEAEA6FF476570F
+              2A4351FEF1F1F1CA7FC42D1A1C1CE410A2DCE37388434C66B399D2D2D21EFD06
+              420D1D1D1D91245C726372DA3F81E3E3E3307BA1202B2B8BBABBBBFF25C7282B
+              2B531CCDD6D6966238AF3EA743F670727242070707240907D86DAE1AFCBCB9B8
+              B8B0B29BB7075E1976285D5D5D0A91B7EF7358989898A0CACA4A554FCAE79457
+              5A069048AFA13BD2220FFB0D5B2973747434B7A4A4C4EE0BEC50AAAAAAA8B7B7
+              97B45A2D211552CE109FC7D2D2520A0808501D10B91EC9424646C61F386AD3CA
+              1FA88E6F110A1EE0249CA22DF7F7F705C8CBD297F7F009DF312F651FE9F5FA9F
+              FDFDFDA7DADBDBC9198090A5C3C343920108E7692F2FAF9FDEB9C9A902B69918
+              181878D155E312859B9BDBFF97F2306CC92A9484585959791162D0AC82BF2789
+              1827AB538F26AB0C5B99012AFE8393D6C9C9496975146EAA65061BB840949D9D
+              BD8198273A3A3A9E55206A696911D8F75248D90A446C373D05B6D25E4C4C8C40
+              98103D3D3D4F2AED7576760A6417D2568BED532BEDA91665535353BF82D8ED3C
+              3D3D0DE1E01D1A1AAA287B2ECEEA743A454EB1F2B0582CB4BEBE4E70F9E46CB0
+              8A621B0C06C33E5451B35A51F6A9E57433F4658DAD9C0E85AF6772B2C0D20E9B
+              4329A763872CAEAEAEF6BCBF9C4EF40FE4D20284F87CA0B70000000049454E44
+              AE426082}
+          end>
+      end
+      item
+        Name = 'themeLight'
+        SourceImages = <
+          item
+            Image.Data = {
+              89504E470D0A1A0A0000000D49484452000000370000001C0806000000C5B027
+              B3000000097048597300000EC300000EC301C76FA86400000538494441545885
+              CD58674B6467143E3A63EF13C7DE105D45A358070D9A5D5DC5B5FC80C8127F80
+              04FC201A827E4F443F26A2DF4220E882F9A81154E22AA8B163C7D105CBACBD8D
+              BDE73C2FCC30EA3413E79207AE73EF7DCBF5BCA73DE7D8911550ABD5AF575757
+              BFBBBABA4A71747454DEDFDF7BF03D4905FE26D9D9D91DF33777F87E2C2C2CEC
+              97E8E8E88F96D69915AEA3A3E3FDEDEDED4F6E6E6E21818181E4E9E949B6C6E5
+              E5A5B8EEEEEEC8DEDE9EF820C505E01987BAB7B747A7A7A76B3299EC87A2A2A2
+              DF4DED6554B8C6C6469F808080CEE0E060554848084981E3E363F18BEFB9BABA
+              42534FE640E08B8B0B5A595911E35AAD96341ACDF0E6E6E6BBF2F2F283C7F39F
+              ECD0D4D494E6E7E7F7213D3D3D1227656BDCDCDC08C1D8CC84F9598BEBEB6B5A
+              5C5C24B62A9A9C9C5C62B7F9A6A2A262CC708ECCF0A1B6B636263131F1434A4A
+              CA2B6327F7D2383F3F17A606C1D8C49EB516F35909427B3E3E3E0A7ECE8E8888
+              E8EEEBEBDBD3CFD1DD545656FA262727FFC61A4B270900F3727272220E0EFF69
+              1F2F2F2FA1453665259B6D7C787878FBE0E0E019C6F476C7B6FE7D7676F66B92
+              000810080C2FE5CF1C1F482E97536666660EE4D0BD17C2D5D4D4A87820852C44
+              CF97C2CECE0EC5C4C45835B7B9B9D9AA79919191B4BFBF0F0153200FDE09E1BC
+              BDBD0BD93CDE90048009F9FBFB93B53E7D727262F5DE6C92A4502872D8548BF1
+              2CABAAAA0A605FCB0F0A0ACA24097070704051515146C7868787696666E6C138
+              A7231CBEFEB9ABAB4B68DE9849BBB8B8D0FAFABA1D07A9A9D0D0D031B9B3B3F3
+              D71C21634822984B2F2A958ABABBBB89F3164D4C4C10877791D01D1C1C882321
+              A5A6A68A7919191926F76079282121216A7C7CFC8D9CCDE30B8E5AAF742CC096
+              80492A954AB373F2F2F2A8B5B595626363A9B0B050FF7E7A7A9A3A3B3BA9ACAC
+              CCEC7A98FCF6F6F6977CABC031DEB060412401E03F96844350C0412725253D78
+              CFDA20777777989DD9F530618EC47EACB45B08E7CE973349044BAC8793301514
+              14181D631E4903030316BFC17CD8897F5CE5F43FC0DCDC1CB5B7B70BAD829C83
+              439A434B4B8BD0204C9883E19371DD014238C4DA0B92487BE09248B886888B8B
+              1317B0BBBB2B22626969E993B5F0B9ACAC2CE2C86EE933977C9D41440495CF24
+              0110C90E0F0FCDCEF1F5F5153EC764F8C1FBF9F979E18F9604C3FECC3377780F
+              999CFFEC71B85D64461E493606B8E4D6D69610C0147A7A7A28373797C6C6C668
+              646444906B1D072D2929115ACDCFCF37B91EE6CAF96E9A6FF7E54C60FBA6A6A6
+              BE4A4B4B7B4736067C0179CB1490C461B6E08AC5C5826488DA0DCCC310434343
+              2673DDD9D9192D2D2D2DF2A1F4DAD7D7D76F725D74C0A679471200F5172A6963
+              40127F1C29DBDADA1E3C436BA604C3BE4CBDEED56AF5514343C3B6082B6CA77F
+              321BE82509E0E1E141CBCBCB56CF476EB3162C1464F9EBE8E8A81DCFA29EEBEF
+              EFD7C4C7C727F0057E69F3CA003EA4D16844B16909EC2E56ED393B3B2B6A3BF6
+              D93FB82AF815EFF419951DB18E85FC481200C2C1FFD6D6D65E643F705144D8D1
+              D1D15EC8A17BAFAFC451BD329F1BE270FD96F999926C0CA4055408A0645CA6FC
+              EB7D7040C88D1B1B1BF32CDCB7757575FA137BD0B840FF8193E4DF5AADF66D60
+              60A0C2D67D1474B9103DD1E841FE7A4E430A2C868501D5820F7F62337F5F5D5D
+              3D6D38C76C6B8F3FA8E2BA886C0DFC83302D1C26975F66BB60A82CE05FC87F00
+              AFB3BEB567888E8E8E32CE3B3F72C40A92A2290B6D209CE31F47770B7EA4B31E
+              1DDFC441609CF3D967A671D5CF6ECA3EC6C2C2420EABBD5CD74EE70F79E004A5
+              028A5536595D3B7D9CD9CACF96DBE944FF00CBC3582122093E9D000000004945
+              4E44AE426082}
+          end>
       end>
     Left = 536
     Top = 448
@@ -152272,8 +152449,8 @@ object mainForm: TmainForm
     OnExecuteError = dcNvidiaStatsExecuteError
     OnNewLine = dcNvidiaStatsNewLine
     OnTerminateProcess = dcNvidiaStatsTerminateProcess
-    Left = 824
-    Top = 72
+    Left = 528
+    Top = 96
   end
   object icSDModels: TImageCollection
     Images = <>
@@ -153118,8 +153295,16 @@ object mainForm: TmainForm
     end
   end
   object SynCompletionProposal1: TSynCompletionProposal
+    DefaultType = ctParams
+    Options = [scoLimitToMatchedText, scoUsePrettyText, scoUseBuiltInTimer]
+    ItemList.Strings = (
+      '<lora:fsf'
+      '<lora:fdfs'
+      '<lora:sss'
+      '<lora:dd'
+      '<lora:fff')
     EndOfTokenChr = '()[]. '
-    TriggerChars = '.'
+    TriggerChars = ':'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -153136,14 +153321,15 @@ object mainForm: TmainForm
     GripperFont.Name = 'Segoe UI'
     GripperFont.Style = []
     Columns = <>
-    ShortCut = 16416
+    OnExecute = SynCompletionProposal1Execute
+    ShortCut = 24608
     Editor = sedPrompt
-    Left = 936
-    Top = 112
+    Left = 792
+    Top = 152
   end
   object pmSDFlavors: TACLPopupMenu
     Left = 328
-    Top = 676
+    Top = 604
     object N6: TACLMenuItem
       Caption = 'MenuItem'
     end
@@ -153158,5 +153344,61 @@ object mainForm: TmainForm
     OnPopup = pmReposPopup
     Left = 232
     Top = 445
+  end
+  object VirtualImageList2: TVirtualImageList
+    Images = <
+      item
+        CollectionIndex = 21
+        CollectionName = 'themeDefault'
+        Name = 'themeDefault'
+      end
+      item
+        CollectionIndex = 22
+        CollectionName = 'themeDark'
+        Name = 'themeDark'
+      end
+      item
+        CollectionIndex = 23
+        CollectionName = 'themeLight'
+        Name = 'themeLight'
+      end>
+    ImageCollection = ImageCollection1
+    Width = 32
+    Left = 848
+    Top = 324
+  end
+  object SynCompletionProposal2: TSynCompletionProposal
+    Options = [scoLimitToMatchedText, scoTitleIsCentered, scoUseInsertList, scoUsePrettyText, scoEndCharCompletion, scoCompleteWithEnter]
+    Width = 480
+    EndOfTokenChr = '()[]. '
+    TriggerChars = '.'
+    Title = 'Activation Text | Lora Filename | Description'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clBtnText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = [fsBold]
+    GripperFont.Charset = DEFAULT_CHARSET
+    GripperFont.Color = clBtnText
+    GripperFont.Height = -12
+    GripperFont.Name = 'Segoe UI'
+    GripperFont.Style = []
+    Columns = <>
+    Resizeable = True
+    Images = LoraImageList
+    ShowGripper = True
+    ShortCut = 16416
+    Editor = sedPrompt
+    Left = 800
+    Top = 216
+  end
+  object LoraImageList: TImageList
+    Left = 946
+    Top = 256
   end
 end

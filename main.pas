@@ -43,7 +43,9 @@ uses
   Vcl.ValEdit, SystemCapabilities, CB.Downloader, ACL.UI.DropSource,
   ACL.UI.DropTarget, ACL.UI.Controls.TreeList.Options,
   ACL.UI.Controls.TreeList.SubClass, ACL.UI.Controls.TreeList.Types,
-  ACL.UI.Controls.TreeList, ACL.UI.Controls.TabControl;
+  ACL.UI.Controls.TreeList, ACL.UI.Controls.TabControl, PngSpeedButton,
+  ES.BaseControls, ES.Images, CB.TriStateButton, JvExControls, JvButton,
+  JvTransparentButton, JPP.PngButton, JPP.BasicPngButton, JPP.BasicPngButtonEx;
 {$DEFINE KernelNotifier}
 type
   TStringList = class(System.Classes.TStringList)
@@ -53,6 +55,14 @@ type
   end;
 
 type
+  TLoraMetadata = record
+    ActivationText: string;
+    Description: string;
+    SDVersion: string;
+    ModelId: Integer;
+    SHA256: string;
+  end;
+
   TStableDiffusionDist = class
   private
     FAssets: TStringList;
@@ -246,6 +256,11 @@ type
     N7: TACLMenuItem;
     N8: TACLMenuItem;
     pmRepos: TACLPopupMenu;
+    RzToolbarButton2: TRzToolbarButton;
+    VirtualImageList2: TVirtualImageList;
+    lblVersion: TACLValidationLabel;
+    SynCompletionProposal2: TSynCompletionProposal;
+    LoraImageList: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure dcNvidiaStatsTerminateProcess(ASender: TObject;
       var ACanTerminate: Boolean);
@@ -311,6 +326,10 @@ type
     procedure imcbSDModelsChange(Sender: TObject);
     procedure ACLButton2Click(Sender: TObject);
     procedure pmReposPopup(Sender: TObject);
+    procedure RzToolbarButton2Click(Sender: TObject);
+    procedure SynCompletionProposal1Execute(Kind: SynCompletionType;
+      Sender: TObject; var CurrentInput: string; var x, y: Integer;
+      var CanExecute: Boolean);
   private
     { Private declarations }
     FOutputBuffer: TStringList;
@@ -334,8 +353,13 @@ type
     FSDParams: TSDParams;
     FSetting: TSetting;
     FAspectRatioWidth, FAspectRatioHeight: Integer;
+    // LoRa's params
+    FLoraLookup: TStringList;
+    FLorasList: TStringList;
     procedure ListModels;
     procedure UpdatePictureList;
+    procedure UpdateLorasList;
+    procedure UpdateLoraCompletionProposal(LoraImageIndices: TDictionary<string, Integer>);
     function ExtractPNGTextChunk(const FileName: string): string;
     procedure WMHelp(var Message: TWMHelp); message WM_HELP;
     procedure WndProc(var Message: TMessage); override;
@@ -497,6 +521,7 @@ begin
     FSetting.Paths.SDLoras := FileOpenDialog1.FileName;
     LabeledEdit2.Text := FSetting.Paths.SDLoras;
     SaveSettings;
+    UpdateLorasList;
   end;
 end;
 
@@ -706,7 +731,7 @@ begin
 //      ProgressBar1.Max := MemTotal;
       var MemUsed := StrToInt(GPUInfo[2]);
 //      ProgressBar1.Position := MemUsed;
-      Caption := 'GPU: ' + GPUInfo[0] + ' - ' + GPUInfo[2] + '/' + GPUInfo[1] + ' ' + GPUInfo[6] + 'ºC            ';
+      Caption := 'GPU: ' + GPUInfo[0] + ' - ' + GPUInfo[2] + '/' + GPUInfo[1] + ' ' + GPUInfo[6] + 'ºC                            ';
 //      GR32WGBar1.Yuzde := StrToInt(GPUInfo[4]);
 //      GR32WGBar2.Yuzde := StrToInt(GPUInfo[5]);
 
@@ -1065,6 +1090,12 @@ begin
 //  TextEditorSpellCheck1.Filename := ExtractFilePath(ParamStr(0)) + 'en-US\en_US';
 //  txtOutput.Highlighter.LoadFromFile('StableDiffusionOut.json');
 //  CustomTitleBar.SystemColors := True;
+
+  FLoraLookup := TStringList.Create;
+  FLorasList := TStringList.Create;
+  FLoraLookup.Add('_');
+  UpdateLorasList;
+
   FDragging := False;
   FZoomFactor := 1.0;
   ImgView321.Scale := 1.0;
@@ -1134,6 +1165,7 @@ begin
   begin
     var Fecha := FormatDateTime('dddd, mmmm dd, yyyy hh:nn:ss am/pm', FSDRelease.FReleaseDate);
     //Memo1.Lines.Add(Format('Released Data: %s', [Fecha]));
+    lblVersion.Caption := Format('Released Data: %s', [Fecha]);
     StackPanel1.ControlCollection.Clear;
     for var I := 0 to FSDRelease.Assets.Count - 1 do
     begin
@@ -1329,6 +1361,13 @@ begin
       Inc(RowIndex);
     end;
   end;
+
+  if FSetting.Theme = tsSystem then
+    RzToolbarButton2.ImageName := 'themeDefault'
+  else if FSetting.Theme = tsDark then
+    RzToolbarButton2.ImageName := 'themeDark'
+  else
+    RzToolbarButton2.ImageName := 'themeLight';
 end;
 
 procedure TmainForm.pmnuEditorPopup(Sender: TObject);
@@ -1485,6 +1524,27 @@ begin
   ShellExecute(0, 'OPEN', 'https://github.com/vhanla/sdwincpp', nil, nil, SW_SHOWNORMAL);
 end;
 
+procedure TmainForm.RzToolbarButton2Click(Sender: TObject);
+begin
+  if RzToolbarButton2.ImageName = 'themeDefault' then
+  begin
+    fSetting.Theme := tsDark;
+    RzToolbarButton2.ImageName := 'themeDark'
+  end
+  else if RzToolbarButton2.ImageName = 'themeDark' then
+  begin
+    fSetting.Theme := tsLight;
+    RzToolbarButton2.ImageName := 'themeLight'
+  end
+  else
+  begin
+    fSetting.Theme := tsSystem;
+    RzToolbarButton2.ImageName := 'themeDefault';
+  end;
+  UpdateThemes;
+  SaveSettings;
+end;
+
 procedure TmainForm.SaveSettings;
 begin
   if not Assigned(FSetting) then
@@ -1541,12 +1601,91 @@ begin
   end;
 end;
 
+procedure TmainForm.SynCompletionProposal1Execute(Kind: SynCompletionType;
+  Sender: TObject; var CurrentInput: string; var x, y: Integer;
+  var CanExecute: Boolean);
+var locline, lookup: UnicodeString;
+    TmpX, savepos, StartX,
+    ParenCounter,
+    TmpLocation: Integer;
+    FoundMatch: Boolean;
+begin
+  with TSynCompletionProposal(Sender).Editor do
+  begin
+    locLine := LineText;
+
+    //go back from the cursor and find the first open paren
+    TmpX := CaretX;
+    if TmpX > length(locLine) then
+      TmpX := length(locLine)
+    else Dec(TmpX);
+    FoundMatch := False;
+    TmpLocation := 0;
+    while (TmpX > 0) and not(FoundMatch) do
+    begin
+      if LocLine[TmpX] = ':' then
+      begin
+        Inc(TmpLocation);
+        Dec(TmpX);
+      end else if LocLine[TmpX] = '>' then
+      begin
+        //We found a close, go till it's opening paren
+        ParenCounter := 1;
+        Dec(TmpX);
+        while (TmpX > 0) and (ParenCounter > 0) do
+        begin
+          if LocLine[TmpX] = '>' then Inc(ParenCounter)
+          else if LocLine[TmpX] = '<' then Dec(ParenCounter);
+          Dec(TmpX);
+        end;
+        if TmpX > 0 then Dec(TmpX);  //eat the open paren
+      end else if locLine[TmpX] = '<' then
+      begin
+        //we have a valid open paren, lets see what the word before it is
+        StartX := TmpX;
+        while (TmpX > 0) and not sedPrompt.IsIdentChar(locLine[TmpX])do
+          Dec(TmpX);
+        if TmpX > 0 then
+        begin
+          SavePos := TmpX;
+          While (TmpX > 0) and sedPrompt.IsIdentChar(locLine[TmpX]) do
+            Dec(TmpX);
+          Inc(TmpX);
+          lookup := Uppercase(Copy(LocLine, TmpX, SavePos - TmpX + 1));
+          FoundMatch := FLoraLookup.IndexOf(Lookup) > -1;
+          if not(FoundMatch) then
+          begin
+            TmpX := StartX;
+            Dec(TmpX);
+          end;
+        end;
+      end else Dec(TmpX)
+    end;
+  end;
+
+  CanExecute := FoundMatch;
+
+  if CanExecute then
+  begin
+    TSynCompletionProposal(Sender).Form.CurrentIndex := TmpLocation;
+    if Lookup <> TSynCompletionProposal(Sender).PreviousToken then
+    begin
+      TSynCompletionProposal(Sender).ItemList.Clear;
+
+      if Lookup.ToLower = '_' then
+      begin
+        TSynCompletionProposal(Sender).ItemList.Add('"<lora:", "Lora Filename: string", "Weight: float"');
+      end;
+    end;
+  end else TSynCompletionProposal(Sender).ItemList.Clear;
+end;
+
 procedure TmainForm.tmrOutputTimer(Sender: TObject);
 var
   tmpbuf: TStringList;
 begin
   if not Assigned(FOutputBuffer) then Exit;
-  
+
   if FOutputBuffer.Count = 0 then
     Exit;
 
@@ -1636,14 +1775,358 @@ begin
   xpListView.Sort.SortAll();
 end;
 
+function IsPNGFile(const FileName: string): Boolean;
+const
+  PNG_SIGNATURE: array[0..7] of Byte = (137, 80, 78, 71, 13, 10, 26, 10);
+var
+  FileStream: TFileStream;
+  Signature: array[0..7] of Byte;
+  BytesRead: Integer;
+begin
+  Result := False;
+  
+  if not FileExists(FileName) then
+    Exit;
+    
+  try
+    FileStream := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
+    try
+      // Read the first 8 bytes which should contain the PNG signature
+      BytesRead := FileStream.Read(Signature, SizeOf(Signature));
+      
+      // Check if we read enough bytes and if they match the PNG signature
+      if (BytesRead = SizeOf(Signature)) then
+      begin
+        Result := True;
+        // Compare each byte of the signature
+        for var i := 0 to High(Signature) do
+        begin
+          if Signature[i] <> PNG_SIGNATURE[i] then
+          begin
+            Result := False;
+            Break;
+          end;
+        end;
+      end;
+    finally
+      FileStream.Free;
+    end;
+  except
+    // If any exception occurs, the file is not a valid PNG
+    Result := False;
+  end;
+end;
+
+function LoadLoraMetadata(const LoraFilePath: string): TLoraMetadata;
+var
+  JsonFilePath: string;
+  JsonString: string;
+  JsonValue: TJSONValue;
+  JsonObject: TJSONObject;
+begin
+  Result.ActivationText := '';
+  Result.Description := '';
+  Result.SDVersion := '';
+  Result.ModelId := 0;
+  Result.SHA256 := '';
+  
+  // Change extension to .json
+  JsonFilePath := ChangeFileExt(LoraFilePath, '.json');
+  
+  if not FileExists(JsonFilePath) then
+    Exit;
+    
+  try
+    JsonString := TFile.ReadAllText(JsonFilePath);
+    JsonValue := TJSONObject.ParseJSONValue(JsonString);
+    
+    if not Assigned(JsonValue) then
+      Exit;
+      
+    try
+      if JsonValue is TJSONObject then
+      begin
+        JsonObject := JsonValue as TJSONObject;
+        
+        // Extract values if they exist
+        if JsonObject.TryGetValue<string>('activation text', Result.ActivationText) then;
+        if JsonObject.TryGetValue<string>('description', Result.Description) then;
+        if JsonObject.TryGetValue<string>('sd version', Result.SDVersion) then;
+        if JsonObject.TryGetValue<Integer>('modelId', Result.ModelId) then;
+        if JsonObject.TryGetValue<string>('sha256', Result.SHA256) then;
+      end;
+    finally
+      JsonValue.Free;
+    end;
+  except
+    // Silently fail if JSON parsing fails
+  end;
+end;
+
+procedure TmainForm.UpdateLorasList;
+var
+  SearchRec: TSearchRec;
+  SearchResult: Integer;
+  LoraPath: string;
+  PngPath: string;
+  PngImage: TPngImage;
+  Bitmap: TBitmap;
+  ScaleRatio: Double;
+  NewWidth, NewHeight: Integer;
+  Canvas: TCanvas;
+  ImageIndex: Integer;
+  LoraImageIndices: TDictionary<string, Integer>;
+begin
+  if not Assigned(FLorasList) then
+    FLorasList := TStringList.Create
+  else
+    FLorasList.Clear;
+    
+  // Clear the image list before updating
+  LoraImageList.Clear;
+  
+  // Create a dictionary to store image indices for each LoRA file
+  LoraImageIndices := TDictionary<string, Integer>.Create;
+  try
+    if not DirectoryExists(FSetting.Paths.SDLoras) then
+      Exit;
+      
+    LoraPath := IncludeTrailingPathDelimiter(FSetting.Paths.SDLoras);
+    
+    // First, add a default image for LoRAs without a custom image
+    Bitmap := TBitmap.Create;
+    try
+      Bitmap.SetSize(16, 16);
+      Bitmap.Canvas.Brush.Color := clNone;
+      Bitmap.Canvas.FillRect(Rect(0, 0, 16, 16));
+      Bitmap.Canvas.Font.Color := clGray;
+      Bitmap.Canvas.Font.Size := 8;
+      Bitmap.Canvas.TextOut(4, 1, 'L');
+      Bitmap.AlphaFormat := afIgnored;
+      LoraImageList.Add(Bitmap, nil);
+    finally
+      Bitmap.Free;
+    end;
+    
+    // Search for .safetensors files
+    SearchResult := FindFirst(LoraPath + '*.safetensors', faAnyFile, SearchRec);
+    try
+      while SearchResult = 0 do
+      begin
+        FLorasList.Add(SearchRec.Name);
+        
+        // Check if there's a corresponding PNG image
+        PngPath := LoraPath + ChangeFileExt(SearchRec.Name, '.preview.png');
+        ImageIndex := 0; // Default image index
+        
+        if FileExists(PngPath) and IsPNGFile(PngPath) then
+        begin
+          PngImage := TPngImage.Create;
+          Bitmap := TBitmap.Create;
+          try
+            PngImage.LoadFromFile(PngPath);
+
+            // Calculate scaling to fit in 16x16 while maintaining aspect ratio
+            ScaleRatio := Min(16/PngImage.Width, 16/PngImage.Height);
+            NewWidth := Round(PngImage.Width * ScaleRatio);
+            NewHeight := Round(PngImage.Height * ScaleRatio);
+
+            // Create a bitmap and draw the scaled PNG
+            Bitmap.SetSize(16, 16);
+            Bitmap.Canvas.Brush.Color := clNone;
+            Bitmap.Canvas.FillRect(Rect(0, 0, 16, 16));
+
+            // Center the image
+            Bitmap.Canvas.StretchDraw(
+              Rect((16 - NewWidth) div 2, (16 - NewHeight) div 2,
+                   (16 + NewWidth) div 2, (16 + NewHeight) div 2),
+              PngImage);
+
+            Bitmap.AlphaFormat := afIgnored;
+
+            // Add to image list and store the index
+            ImageIndex := LoraImageList.Add(Bitmap, nil);
+          finally
+            PngImage.Free;
+            Bitmap.Free;
+          end;
+        end;
+
+        // Store the image index for this LoRA file
+        LoraImageIndices.Add(SearchRec.Name, ImageIndex);
+
+        SearchResult := FindNext(SearchRec);
+      end;
+    finally
+      FindClose(SearchRec);
+    end;
+
+    // Also look for .pt files which can be LoRA files
+    SearchResult := FindFirst(LoraPath + '*.pt', faAnyFile, SearchRec);
+    try
+      while SearchResult = 0 do
+      begin
+        FLorasList.Add(SearchRec.Name);
+
+        // Check if there's a corresponding PNG image
+        PngPath := LoraPath + ChangeFileExt(SearchRec.Name, '.preview.png');
+        ImageIndex := 0; // Default image index
+
+        if FileExists(PngPath) and IsPNGFile(PngPath) then
+        begin
+          PngImage := TPngImage.Create;
+          Bitmap := TBitmap.Create;
+          try
+            PngImage.LoadFromFile(PngPath);
+
+            // Calculate scaling to fit in 16x16 while maintaining aspect ratio
+            ScaleRatio := Min(16/PngImage.Width, 16/PngImage.Height);
+            NewWidth := Round(PngImage.Width * ScaleRatio);
+            NewHeight := Round(PngImage.Height * ScaleRatio);
+            
+            // Create a bitmap and draw the scaled PNG
+            Bitmap.SetSize(16, 16);
+            Bitmap.Canvas.Brush.Color := clNone;
+            Bitmap.Canvas.FillRect(Rect(0, 0, 16, 16));
+            
+            // Center the image
+            Bitmap.Canvas.StretchDraw(
+              Rect((16 - NewWidth) div 2, (16 - NewHeight) div 2, 
+                   (16 + NewWidth) div 2, (16 + NewHeight) div 2), 
+              PngImage);
+            
+            Bitmap.AlphaFormat := afIgnored;
+            
+            // Add to image list and store the index
+            ImageIndex := LoraImageList.Add(Bitmap, nil);
+          finally
+            PngImage.Free;
+            Bitmap.Free;
+          end;
+        end;
+        
+        // Store the image index for this LoRA file
+        LoraImageIndices.Add(SearchRec.Name, ImageIndex);
+        
+        SearchResult := FindNext(SearchRec);
+      end;
+    finally
+      FindClose(SearchRec);
+    end;
+    
+    FLorasList.Sort;
+    
+    // Update the completion proposal with the new LoRA list and image indices
+    UpdateLoraCompletionProposal(LoraImageIndices);
+  finally
+    LoraImageIndices.Free;
+  end;
+end;
+
+procedure TmainForm.UpdateLoraCompletionProposal(LoraImageIndices: TDictionary<string, Integer>);
+var
+  I: Integer;
+  LoraName, LoraFileName: string;
+  InsertList: TStringList;
+  ItemList: TStringList;
+  ImageIndex: Integer;
+  LoraFilePath: string;
+  Metadata: TLoraMetadata;
+  DisplayText: string;
+  FirstActivation: string;
+  CappedDescription: string;
+begin
+  if not Assigned(FLorasList) or (FLorasList.Count = 0) then
+    Exit;
+    
+  InsertList := TStringList.Create;
+  ItemList := TStringList.Create;
+  
+  try
+    for I := 0 to FLorasList.Count - 1 do
+    begin
+      LoraFileName := FLorasList[I];
+      // Get the LoRA filename without extension
+      LoraName := ChangeFileExt(LoraFileName, '');
+      
+      // Format for insertion: <lora:lorafilename:1.0>
+      InsertList.Add(Format('<lora:%s:1.0>', [LoraName]));
+      
+      // Get the full path to the LoRA file
+      LoraFilePath := IncludeTrailingPathDelimiter(FSetting.Paths.SDLoras) + LoraFileName;
+      
+      // Load metadata if available
+      Metadata := LoadLoraMetadata(LoraFilePath);
+      
+      // Get the first activation text (before first comma)
+      if Metadata.ActivationText <> '' then
+      begin
+        FirstActivation := Metadata.ActivationText;
+        if Pos(',', FirstActivation) > 0 then
+          FirstActivation := Copy(FirstActivation, 1, Pos(',', FirstActivation) - 1);
+      end
+      else
+        FirstActivation := '';
+        
+      // Cap description to a reasonable length
+      if Metadata.Description <> '' then
+      begin
+        CappedDescription := Metadata.Description;
+        if Length(CappedDescription) > 50 then
+          CappedDescription := Copy(CappedDescription, 1, 47) + '...';
+      end
+      else
+        CappedDescription := '(no info)';
+      
+      // Format display text based on available metadata
+      if FirstActivation <> '' then
+        DisplayText := Format('\image{%%d}\hspace{2}%s \column{}\style{+B}%s\style{-B} %s', 
+          [FirstActivation, LoraName, CappedDescription])
+      else
+        DisplayText := Format('\image{%%d}\hspace{2}lora \column{}\style{+B}%s\style{-B} %s', 
+          [LoraName, CappedDescription]);
+
+      // Get the image index for this LoRA file
+      if LoraImageIndices.TryGetValue(LoraFileName, ImageIndex) then
+      begin
+        // Format for display with the correct image index
+        ItemList.Add(Format(DisplayText, [ImageIndex]));
+      end
+      else
+      begin
+        // Use default image if no specific image is found
+        ItemList.Add(Format(DisplayText, [0]));
+      end;
+    end;
+
+    // Update the completion proposal component
+    SynCompletionProposal2.InsertList.Assign(InsertList);
+    SynCompletionProposal2.ItemList.Assign(ItemList);
+
+    // Configure the completion proposal if not already done
+    if not Assigned(SynCompletionProposal2.Editor) then
+    begin
+      SynCompletionProposal2.Editor := sedPrompt;
+      SynCompletionProposal2.ShortCut := TextToShortCut('Ctrl+Space');
+      SynCompletionProposal2.TriggerChars := '<lora:';
+      SynCompletionProposal2.EndOfTokenChr := ':>';
+    end;
+  finally
+    InsertList.Free;
+    ItemList.Free;
+  end;
+end;
+
 procedure TmainForm.UpdateThemes;
 begin
-  if IsWindowsDarkMode then
+  if (IsWindowsDarkMode and (FSetting.Theme = tsSystem )) or (FSetting.Theme = tsDark) then
   begin
 
     ACLApplicationController1.DarkMode := TACLBoolean.True;
+    TStyleManager.TrySetStyle('Windows11 Modern Dark');
     with mainForm.CustomTitleBar do
     begin
+      Enabled := False;
       SystemColors := False;
       BackgroundColor := clBlack;
       ButtonBackgroundColor := clWhite;
@@ -1657,8 +2140,9 @@ begin
       ForegroundColor := clWhite;
       InactiveBackgroundColor := $002d2d2d;
       InactiveForegroundColor := $00999999;
+      Enabled := True;
     end;
-    TStyleManager.TrySetStyle('Windows11 Modern Dark');
+
     ImgView321.Color := clBackground;
     RzTabControl1.BackgroundColor := clBackground;
     RzTabControl1.Color := clBackground;
@@ -1679,6 +2163,9 @@ begin
     container.Color := clBlack;
 
     SetDarkMode(Handle, True);
+    Hide;
+    Sleep(10);
+    Show;
   end
   else
   begin
